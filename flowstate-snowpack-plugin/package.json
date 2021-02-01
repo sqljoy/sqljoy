@@ -1,0 +1,16 @@
+{
+  "name": "flowstate-snowpack-plugin",
+  "version": "1.0.0",
+  "description": "flowstate snowpack plugin",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Eloff",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "flowstate": "file:../flowstate-client",
+    "typescript": "^4.1.3"
+  }
+}
