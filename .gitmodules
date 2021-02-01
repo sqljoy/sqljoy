@@ -1,0 +1,3 @@
+[submodule "flowstate-hugo"]
+	path = flowstate-hugo
+	url = git@github.com:flowstatesrc/flowstate-hugo.git
