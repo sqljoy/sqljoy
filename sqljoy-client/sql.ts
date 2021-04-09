@@ -32,16 +32,6 @@ export interface SQL {
      *
      */
     fragments?: SQL[];
-    /**
-     * Idempotent is true if this query can be called multiple times with the same params
-     * and produce the same result without side effects. Select queries fit this criteria
-     * as can insert queries with an ON CONFLICT clause. Delete queries referencing are
-     * the primary key are usually idempotent if the primary key can't be re-used quickly.
-     * Update queries that affect a single row are usually idempotent. The compiler only
-     * assumes selects are idempotent, anything else must be explicitly marked as such
-     * by using the sqli template tag instead of sql on the root query template.
-     */
-    idempotent?: boolean; // true if it's safe to automatically re-execute this query if the connection drops before receiving a response
 }
 
 /**

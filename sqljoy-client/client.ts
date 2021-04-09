@@ -1,6 +1,6 @@
 import {getServerUrl, PreventUnload, Settings, validateSettings} from "./config.js";
 import {SQL} from "./sql.js";
-import {validate, ValidationError, Validator} from "./validation";
+import {validate, ValidationError, ValidationErrors, Validator} from "./validation";
 import {Result} from "./result.js";
 import {isString, wait} from "./util.js";
 
@@ -17,11 +17,13 @@ export interface Call {
      * A 30 character base64-encoded hash identifying the server function
      */
     func: string;
-    /**
-     * Idempotent is true if this function can be called multiple times with the same arguments
-     * and produce the same result without side effects.
-     */
-    idempotent?: boolean;
+}
+
+class ConnectionError extends Error {
+    constructor(message: string = "connection closed") {
+        super(message);
+        this.name = "ConnectionError";
+    }
 }
 
 class QueryInProgress {
@@ -31,19 +33,13 @@ class QueryInProgress {
     resolve: (result: Result | any) => void;
     reject: (reason: Error) => void;
 
-    constructor(msg: string | null, resolve: (result: Result | any) => void, reject: (reason: Error) => void) {
-        this.cmd = (msg == null) ? CommandType.CALL : msg.charAt(0) as CommandType;
-        this.msg = msg;
+    constructor(resolve: (result: Result | any) => void, reject: (reason: Error) => void) {
         this.resolve = resolve;
         this.reject = reject;
     }
 
-    isIdempotent(): boolean {
-        return this.msg !== null;
-    }
-
     cancel() {
-        this.reject(new Error(`connection closed`));
+        this.reject(new ConnectionError());
     }
 }
 
@@ -138,7 +134,7 @@ class SQLJoy {
             // as the client is untrusted.
             const errors = await validate(query, allParams, validators);
             if (errors != null) {
-                throw ValidationError(errors);
+                throw new ValidationError(errors);
             }
         }
 
@@ -146,7 +142,7 @@ class SQLJoy {
         // changes so that the server-side validators receive the same input.
         allParams = (params) ? Object.assign({}, query.params, params) : query.params;
 
-        return this.sendCommand(CommandType.QUERY, query.query, !!query.idempotent, allParams);
+        return this.sendCommand(CommandType.QUERY, query.query, allParams);
     }
 
     /**
@@ -161,7 +157,7 @@ class SQLJoy {
      * @param args The JSON serializable arguments to pass to the target function
      */
     async serverCall(target: Call, ...args: any[]): Promise<any> {
-        return this.sendCommand(CommandType.CALL, target.func, !!target.idempotent, args);
+        return this.sendCommand(CommandType.CALL, target.func, args);
     }
 
     /**
@@ -233,7 +229,7 @@ class SQLJoy {
         }).catch(() => this.connecting = false);
     }
 
-    protected sendCommand(cmd: CommandType, target: string, idempotent: boolean, args: Record<string, any> | any[]): Promise<Result> {
+    protected sendCommand(cmd: CommandType, target: string, args: Record<string, any> | any[]): Promise<Result> {
         const id = ++this.idSequence;
         // We don't need to send requests with the binary protocol.
         // Most requests are small and the code size increase and processing time increase aren't worth it.
@@ -243,7 +239,7 @@ class SQLJoy {
         // so there is no performance difference for the server.
         const msg = `${cmd}${id};${target};${JSON.stringify(args)}`;
         const promise = new Promise<Result>((resolve, reject) => {
-            this.queries[id] = new QueryInProgress(idempotent ? msg : null, resolve, reject);
+            this.queries[id] = new QueryInProgress(resolve, reject);
         });
         this.send(msg);
         return promise;
@@ -313,15 +309,10 @@ class SQLJoy {
         for(let id in this.queries) {
             if (this.queries.hasOwnProperty(id)) {
                 const q = this.queries[id];
-                if (!this.closed && q.isIdempotent()) {
-                    // Re-connect and re-send this read-only query
-                    this.send(q.msg!);
-                } else {
-                    q.cancel();
-                    delete this.queries[id];
-                }
+                q.cancel();
             }
         }
+        this.queries = {};
         this.sock = null;
     }
 
