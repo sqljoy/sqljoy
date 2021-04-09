@@ -62,14 +62,14 @@ export function sql(strings: string[], ...exprs: any[]): SQL {
     };
 }
 
-export const __P = {}; // just a unique marker object
-
-export function __merge(query: SQL, ...fragments: SQL[]) {
-    query.fragments = query.fragments || [];
+export function __merge(query: SQL, ...fragments: SQL[]): SQL {
+    // make a shallow copy of the query so we don't modify the original
+    query = { ...query };
+    query.fragments = query.fragments ? query.fragments.slice() : [];
     for (const fragment of fragments) {
         query.fragments.push(fragment);
         if (fragment.params != null) {
-            query.params = query.params || {};
+            query.params = { ...query.params };
             for (const key in fragment.params) {
                 if (fragment.params.hasOwnProperty(key)) {
                     query.params[key] = fragment.params[key];
@@ -77,4 +77,5 @@ export function __merge(query: SQL, ...fragments: SQL[]) {
             }
         }
     }
+    return query;
 }

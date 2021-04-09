@@ -127,15 +127,14 @@ class SQLJoy {
         }
 
         let allParams = Object.assign({}, query.params, params);
-        if (validators.length !== 0) {
-            // This is the client-side validation. We also extract these functions and validParams
-            // through the whitelist compiler and save them with the query whitelist so the server
-            // can run them again. Note that we can't simply pass that information through from here
-            // as the client is untrusted.
-            const errors = await validate(query, allParams, validators);
-            if (errors != null) {
-                throw new ValidationError(errors);
-            }
+
+        // This is the client-side validation. We also extract these functions and validParams
+        // through the whitelist compiler and save them with the query whitelist so the server
+        // can run them again. Note that we can't simply pass that information through from here
+        // as the client is untrusted.
+        const errors = await validate(query, allParams, validators);
+        if (errors != null) {
+            throw new ValidationError(errors);
         }
 
         // The validators can modify params, but on the client we need to discard those
