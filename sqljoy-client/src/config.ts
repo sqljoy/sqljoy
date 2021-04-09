@@ -12,16 +12,16 @@ export enum PreventUnload {
 export interface Settings {
     accountId?: string; // should be omitted if self-hosted
     discoveryUrl?: string;
-    discoveryTTLSeconds?: number;
+    discoveryTTLSeconds: number;
     servers: string[];
     preventUnload: PreventUnload;
-    _valid?: boolean;
-    _lastServer?: number;
+    _valid: boolean;
+    _lastServer: number;
 }
 
-export function validateSettings(settings: Partial<Settings>) {
+export function validateSettings(settings: Partial<Settings>): Settings {
     if (settings._valid) {
-        return;
+        return settings as Settings;
     }
 
     if (!settings.discoveryUrl && !settings.servers) {
@@ -35,10 +35,11 @@ export function validateSettings(settings: Partial<Settings>) {
         shuffleArray(settings.servers);
     }
 
-    settings.preventUnload |= 0; // WAIT_FOR_SEND
-    settings.discoveryTTLSeconds |= 0;
-    settings._lastServer |= 0;
+    settings.preventUnload ||= 0; // WAIT_FOR_SEND
+    settings.discoveryTTLSeconds ||= 0;
+    settings._lastServer ||= 0;
     settings._valid = true;
+    return settings as Settings;
 }
 
 export async function getServerUrl(settings: Settings): Promise<string> {
@@ -62,7 +63,7 @@ export async function getServerUrl(settings: Settings): Promise<string> {
 }
 
 const serverCache = {
-    servers: [],
+    servers: [] as string[],
     error: "",
     fetchedAt: new Date(2020),
 };
@@ -73,7 +74,7 @@ export async function refreshServers(settings: Settings, force: boolean = false)
     }
 
     const now = new Date();
-    if (!force && now - serverCache.fetchedAt < settings.discoveryTTLSeconds * 1000) {
+    if (!force && (now.getTime() - serverCache.fetchedAt.getTime()) < (settings.discoveryTTLSeconds * 1000)) {
         return serverCache.servers;
     }
 
@@ -83,7 +84,7 @@ export async function refreshServers(settings: Settings, force: boolean = false)
         return [];
     }
 
-    const servers = res.json();
+    const servers = await res.json();
     if (!Array.isArray(servers) || servers.length === 0) {
         return [];
     }
@@ -93,4 +94,5 @@ export async function refreshServers(settings: Settings, force: boolean = false)
     serverCache.servers = servers;
     serverCache.fetchedAt = now;
     serverCache.error = "";
+    return servers;
 }

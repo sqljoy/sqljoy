@@ -19,6 +19,13 @@ export interface Call {
     func: string;
 }
 
+/**
+ * ConnectionError is thrown if the transport connection is interrupted during a query/call.
+ *
+ * @remarks The client is still usable, and subsequent queries/calls will establish a new connection.
+ * You may want to retry the task, but be careful if it's not idempotent - it could have already executed
+ * on the server before the connection was interrupted.
+ */
 class ConnectionError extends Error {
     constructor(message: string = "connection closed") {
         super(message);
@@ -27,9 +34,6 @@ class ConnectionError extends Error {
 }
 
 class QueryInProgress {
-    cmd: CommandType;
-    msg: string | null;
-    idempotent: boolean;
     resolve: (result: Result | any) => void;
     reject: (reason: Error) => void;
 
@@ -66,12 +70,12 @@ class SQLJoy {
      *
      * @param settings - client configuration and options
      */
-    constructor(settings: Settings) {
-        validateSettings(settings);
-        this.settings = settings;
+    constructor(settings: Partial<Settings>) {
+        this.settings = validateSettings(settings);
         this.url = "";
         this.sock = null;
         this.closed = false;
+        this.connecting = false;
         this.unloadRegistered = null;
         this.connect();
     }

@@ -88,7 +88,7 @@ export async function validate(query: SQL, params: Record<string, any>, validato
 
     const promises: Promise<void>[] = [];
     for (let validator of validators) {
-        const result = validator(errors, params);
+        const result = validator(errors!, params);
         if (isPromise(result)) {
             promises.push(result);
         }
