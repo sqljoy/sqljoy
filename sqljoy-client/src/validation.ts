@@ -1,73 +1,94 @@
 import {isPromise} from "./util";
 import {SQL} from "./sql";
 
+/**
+ * A validator callback that accumulates errors found in the param object into the ValidationErrors.
+ *
+ * If a param is not of the late-bound form like `%{name}` it will be named as a positional argument like $1, $2, etc.
+ */
 export type Validator = (errors: ValidationErrors, params: Record<string, any>) => Promise<void> | void;
 
+/**
+ * ValidationError is an error thrown when validation fails.
+ *
+ * It's designed to support showing validation errors for user input.
+ */
 export class ValidationError extends Error {
-    errors: Record<string, string[]>;
+    /**
+     * An object mapping the invalid parameter name to an error. If there is
+     * more than one error per parameter, only the first is recorded.
+     */
+    errors: Record<string, string>;
+    /**
+     * An array of errors that don't pertain to any individual parameter.
+     */
+    nonFieldErrors: string[];
 
     constructor(errors: ValidationErrors) {
         super(errors.toString());
         this.name = "ValidationError";
         this.errors = errors.errors;
+        this.nonFieldErrors = errors.nonFieldErrors;
     }
 }
 
+/**
+ * ValidationErrors accumulates validation errors in the errors property.
+ *
+ * It's designed to support showing validation errors for user input.
+ */
 export class ValidationErrors {
-    errors: Record<string, string[]>;
+    /**
+     * An object mapping the invalid parameter name to an error. If there is
+     * more than one error per parameter, only the first is recorded.
+     *
+     * If an error doesn't pertain to any individual parameter,
+     * it's stored in the {@link nonFieldErrors} array.
+     */
+    errors: Record<string, string>;
+    /**
+     * An array of errors that don't pertain to any individual parameter.
+     */
+    nonFieldErrors: string[];
 
     constructor() {
         this.errors = {};
+        this.nonFieldErrors = [];
     }
 
-    add(name: string, error: string) {
-        let errors = this.errors[name] || [];
-        errors.push(error);
-        if (errors.length === 1) {
-            this.errors[name] = errors;
+    /**
+     * Add an error if there isn't already an error for the passed parameter name.
+     *
+     * @param name - the parameter name. If falsey, the error is appended to nonFieldErrors.
+     * @param error - the error to add
+     */
+    add(name: string | undefined, error: string) {
+        if (!name) {
+            this.nonFieldErrors.push(error);
+        } else if (!this.errors[name]) {
+            this.errors[name] = error;
         }
     }
 
+    /**
+     * hasErrors is true if this object contains any errors.
+     */
     hasErrors(): boolean {
+        if (this.nonFieldErrors.length !== 0) {
+            return true;
+        }
         for (let key in this.errors) {
-            if (this.errors.hasOwnProperty(key) && this.errors[key].length !== 0) {
+            if (this.errors.hasOwnProperty(key)) {
                 return true;
             }
         }
         return false;
     }
 
-    toString(joinNames="\n", joinErrors="\n\t"): string {
+    toString(joinNames="\n"): string {
         const names = Object.keys(this.errors);
         names.sort();
-        return names.map((k: string) => `${k}: ${this.errors[k].join(joinErrors)}`).join(joinNames);
-    }
-}
-
-/**
- * mergeErrors merges the second ValidationErrors object into the first.
- * It's useful if you need to group errors from multiple queries into one
- * ValidationErrors object so it can be handled together.
- *
- * @param a
- * @param b
- *
- * @category Advanced
- */
-export function mergeErrors(a: ValidationErrors, b: ValidationErrors) {
-    for (let errorKey in b.errors) {
-        if (b.errors.hasOwnProperty(errorKey)) {
-            const rhs = b.errors[errorKey];
-            let lhs = a.errors[errorKey];
-            if (lhs === undefined) {
-                lhs = rhs;
-            } else {
-                for (let err of rhs) {
-                    lhs.push(err);
-                }
-            }
-            a.errors[errorKey] = lhs;
-        }
+        return names.map((k: string) => `${k}: ${this.errors[k]}`).join(joinNames);
     }
 }
 

@@ -7,7 +7,7 @@
   "scripts": {
     "start": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "typedoc --out docs --excludeProtected --excludePrivate -categorizeByGroup true src/index.ts",
+    "docs": "typedoc --out docs --excludeProtected --excludePrivate --defaultCategory Package --categoryOrder Package src/index.ts",
     "build": "tsc -p ."
   },
   "repository": {

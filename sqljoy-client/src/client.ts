@@ -59,9 +59,21 @@ class QueryInProgress {
  * additional server utilization for no benefit. Prefer using this is a global singleton.
  */
 export class SQLJoy {
+    /**
+     * The url of the server this client is connected to.
+     */
     url: string;
+    /**
+     * The settings object this client was created with.
+     */
     settings: Settings;
+    /**
+     * True if close() has been called. The client may not be used further in that case.
+     */
     closed: boolean;
+    /**
+     * True if the client is in the process of connecting to the server.
+     */
     connecting: boolean;
     protected unloadRegistered: ((ev: Event) => string | undefined) | null;
     protected sock: WebSocket | null;

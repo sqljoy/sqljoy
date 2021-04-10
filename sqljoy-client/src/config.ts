@@ -9,21 +9,21 @@ declare global {
 }
 
 /**
- * Defines what to do about in-progress queries/calls if leaving the page or closing the SQLJoy client.
+ * Defines what to do about in-progress queries/calls if leaving the page or draining the SQLJoy client.
  *
- * @see {@link Settings.preventUnload} and {@link SQLJoy.close} for more information.
+ * @see {@link Settings.preventUnload} and {@link SQLJoy.drain} for more information.
  */
 export enum WaitBehavior {
     /**
-     * Enabled. Registers an event handler that prompts the user to stay while there are still queries/calls buffered to send to the server.
+     * Wait for any queries/calls that are still buffered to send to the server.
      */
     WAIT_FOR_SEND,
     /**
-     * Enabled. Registers an event handler that prompts the user to stay while there are still queries/calls which have not returned a result.
+     * Wait for any queries/calls which have not returned a result from the server.
      */
     WAIT_FOR_ACK,
     /**
-     * Disabled. Does not register any beforeunload event handler.
+     * Do not wait.
      */
     NEVER
 }
