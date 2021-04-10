@@ -44,6 +44,16 @@ export class ValidationErrors {
     }
 }
 
+/**
+ * mergeErrors merges the second ValidationErrors object into the first.
+ * It's useful if you need to group errors from multiple queries into one
+ * ValidationErrors object so it can be handled together.
+ *
+ * @param a
+ * @param b
+ *
+ * @category Advanced
+ */
 export function mergeErrors(a: ValidationErrors, b: ValidationErrors) {
     for (let errorKey in b.errors) {
         if (b.errors.hasOwnProperty(errorKey)) {
@@ -69,6 +79,20 @@ function addError(errors: ValidationErrors | null, key: string, err: string): Va
     return errors;
 }
 
+/**
+ * validate is used by executeQuery to validate the query parameters with the
+ * passed validator functions.
+ *
+ * It can be useful to call validate directly in cases where you want to validate
+ * the user input (parameters) without executing the query yet. For example, if
+ * you only have partial input or you're validating it as the user enters it.
+ *
+ * @param query
+ * @param params
+ * @param validators
+ *
+ * @category Advanced
+ */
 export async function validate(query: SQL, params: Record<string, any>, validators: Validator[]): Promise<ValidationErrors | null> {
     let errors: ValidationErrors | null = (validators.length === 0) ? null : new ValidationErrors();
 

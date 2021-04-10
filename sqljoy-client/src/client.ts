@@ -1,7 +1,10 @@
-import {getServerUrl, PreventUnload, Settings, validateSettings} from "./config.js";
+import {Settings, validateSettings, WaitBehavior} from "./config.js";
+import {getServerUrl} from "./discover";
 import {SQL} from "./sql.js";
-import {validate, ValidationError, ValidationErrors, Validator} from "./validation";
+import {validate, ValidationError, Validator} from "./validation";
 import {Result} from "./result.js";
+import {addClient, removeClient, defaultVersionChangeHandler} from "./registry";
+import {updateUnloadHandler} from "./unload";
 import {isString, wait} from "./util.js";
 
 enum CommandType {
@@ -50,12 +53,12 @@ class QueryInProgress {
 /**
  * SQLJoy represents a single client connection to the server.
  *
- * The client supports pipelining queries and server calls.
+ * The client supports concurrent asynchronous queries and server calls.
  *
- * @remarks It's possible to create multiple client instance, but usually this just causes
- * additional server utilization for no benefit.
+ * @remarks It's possible to create multiple client instances, but usually this just causes
+ * additional server utilization for no benefit. Prefer using this is a global singleton.
  */
-class SQLJoy {
+export class SQLJoy {
     url: string;
     settings: Settings;
     closed: boolean;
@@ -68,9 +71,15 @@ class SQLJoy {
     /**
      * Creates a SQLJoy client and initiates a connection to the server.
      *
+     * @remarks Except for advanced use cases, you should use the getClient() function
+     * instead, which returns a singleton instance of this class.
+     *
      * @param settings - client configuration and options
      */
     constructor(settings: Partial<Settings>) {
+        if (settings.versionChangeHandler === undefined) {
+            settings.versionChangeHandler = defaultVersionChangeHandler;
+        }
         this.settings = validateSettings(settings);
         this.url = "";
         this.sock = null;
@@ -78,6 +87,7 @@ class SQLJoy {
         this.connecting = false;
         this.unloadRegistered = null;
         this.connect();
+        addClient(this);
     }
 
     /**
@@ -111,15 +121,20 @@ class SQLJoy {
      * executeQuery executes a compiled query (SQL) object with the optional additional named parameters
      * and validators and returns a promise resolving to a Result object.
      *
-     * @remarks The parameters passed to the validator will be the expressions embedded in the query
+     * The parameters passed to the validator will be the expressions embedded in the query
      * e.g. sql`select * from foo where id = ${foo.id}` will add a parameter "foo.id": value to the
      * parameters object. Expressions or literals like ${foo + 1} will be named as positional arguments
      * starting at "$1". Late-bound parameters using the %{param} syntax must be provided in the
-     * params argument to this function or it will throw a ValidationError. The validators will
-     * be executed again on the server side to ensure they cannot be bypassed. Validators can
-     * change the type or values of the query parameters.
+     * params argument to this function or it will throw a ValidationError. If any parameter is undefined
+     * this throws a ValidationError. Use null if you mean null (simply ${param || null} will work.)
+     * The validators will be executed again on the server side to ensure they cannot be bypassed.
+     * Validators can change the type or values of the query parameters. Validators can also be async
+     * functions and can perform queries or fetch requests.
      *
-     * @throws ValidationError if any of the validators fail.
+     * @remarks It's also possible to call validators with {@link validate} without executing the query (e.g. to display
+     * feedback for a form.)
+     *
+     * @throws {@link ValidationError} if any of the validators fail.
      *
      * @param query the compiled SQL query to execute
      * @param params override bound ${expr} parameters or specify late-bound %{name} query parameters
@@ -167,43 +182,75 @@ class SQLJoy {
      * Close terminates the connection to the server (if any). This client object cannot be used again afterwards.
      *
      * @remarks If using WebSocket transport, queries (inserts/updates) or server calls that have been issued
-     * may not yet be sent to the server. To avoid losing user changes, this method waits for buffered messages to be sent
-     * before closing the underlying transport. If that behavior is undesirable, pass force=true when calling this.
-     *
-     * @param force - close transport immediately, do not send buffered data.
+     * may not yet be sent to the server. To avoid losing user changes, call the drain() method first.
      */
-    async close(force: boolean = false) {
+    close() {
         if (this.closed) {
             return;
         }
         this.closed = true;
-
-        while (!force && this.sock !== null && this.sock.readyState !== this.sock.CLOSED && this.sock.readyState !== this.sock.CLOSING) {
-            if (this.sock.bufferedAmount === 0) {
-                break;
-            } else {
-                await wait(10);
-            }
-        }
 
         if (this.sock !== null) {
             this.sock.close();
             this.sock = null;
         }
         // TODO does onClose get invoked here? If not, we need to call it ourselves.
+
+        removeClient(this);
     }
 
     /**
-     * pendingCount() returns the number of queries or commands still awaiting results from the server
+     * Wait for pending queries/calls according to the waitFor parameter.
+     *
+     * @example Wait for queries before closing.
+     * `
+     * async function redirect(url: string) {
+     *     await client.drain();
+     *     client.close();
+     *     window.location.href = url;
+     * }
+     * `
+     *
+     * @param waitFor whether to wait for requests to send or to complete. Defaults to WAIT_FOR_ACK.
+     * Passing NEVER causes this method to return immediately.
      */
-    pendingCount(): number {
-        let count = 0;
+    async drain(waitFor: WaitBehavior = WaitBehavior.WAIT_FOR_ACK): Promise<void> {
+        while (this.hasPending(waitFor)) {
+            await wait(5);
+        }
+    }
+
+    /**
+     * hasPending returns true if there are pending requests that are in progress according
+     * to the specified WaitBehavior or settings.preventUnload if omitted.
+     *
+     * @param waitFor - the WaitBehavior to determine what kind of pending requests sho
+     */
+    hasPending(waitFor?: WaitBehavior): boolean {
+        waitFor ||= this.settings.preventUnload;
+        if (waitFor === WaitBehavior.NEVER) {
+            return false;
+        }
+        // Check if we have a valid connection, otherwise we're going to discard all pending requests anyway on the next connect().
+        if (this.sock == null || this.sock.readyState === this.sock.CLOSED || this.sock.readyState === this.sock.CLOSING) {
+            return false;
+        }
+        // If waitFor === WaitBehavior.WAIT_FOR_ACK, check if hasPending(), otherwise check if anything if buffered
+        return (waitFor === WaitBehavior.WAIT_FOR_ACK && this.hasPendingResult()) || this.sock.bufferedAmount !== 0;
+    }
+
+    /**
+     * hasPendingResult() returns true if there are queries or commands still awaiting results from the server.
+     *
+     * @see also {@link hasPending} which is more precise.
+     */
+    protected hasPendingResult(): boolean {
         for(let id in this.queries) {
             if (this.queries.hasOwnProperty(id)) {
-                count++;
+                return true;
             }
         }
-        return count;
+        return false;
     }
 
     /**
@@ -258,11 +305,15 @@ class SQLJoy {
             return;
         }
         this.sock.send(msg);
-        this.updateUnloadHandler();
+        if (this.settings.preventUnload !== WaitBehavior.NEVER) {
+            updateUnloadHandler();
+        }
     }
 
     protected onMsg(e: MessageEvent) {
-        this.updateUnloadHandler();
+        if (this.settings.preventUnload !== WaitBehavior.NEVER) {
+            updateUnloadHandler();
+        }
 
         let id = 0;
         let error = "";
@@ -293,6 +344,7 @@ class SQLJoy {
             return;
         }
 
+        delete this.queries[id];
         if (error.length !== 0) {
             promise.reject(Error(error));
         } else {
@@ -317,80 +369,5 @@ class SQLJoy {
         }
         this.queries = {};
         this.sock = null;
-    }
-
-    // The "beforeunload" code here exists to handle the case where the user navigates away
-    // from the page after sending commands on the WebSocket transport, but before waiting
-    // for the results. There can be a situation where some of those commands are to save
-    // user data, but they're still buffered on the WebSocket and haven't been sent to the
-    // server. settings.preventDefault can be set to NEVER, WAIT_FOR_SEND, and WAIT_FOR_ACKNOWLEDGEMENT.
-    // NEVER disables all this logic, WAIT_FOR_SEND waits for buffered data to be sent,
-    // and WAIT_FOR_ACKNOWLEDGEMENT waits until all results have been received from the server.
-    //
-    // The beforeunload event is kind of hairy, best practices are to only register a handler
-    // when there actually is unsaved data, and then to clear it again as soon as possible.
-    // So this is the approach that we take, and only if the feature is enabled.
-    //
-    // We update the beforeunload handler after every sent and received message.
-
-    protected onUnload(ev: Event): string | undefined {
-        let pending = this.sock !== null && this.sock.bufferedAmount !== 0 && this.sock.readyState === this.sock.OPEN;
-        if (!pending && this.settings.preventUnload === PreventUnload.WAIT_FOR_ACKNOWLEDGEMENT && this.pendingCount() !== 0) {
-            pending = true;
-        }
-
-        if (!pending) {
-            this.clearUnload();
-            return;
-        }
-
-        ev.preventDefault();
-        let msg = "There is unsaved data in transit that may be lost. Are you sure you want to leave?";
-        // @ts-ignore
-        ev.returnValue = msg;
-        return msg;
-    }
-
-    protected updateUnloadHandler() {
-        if (this.settings.preventUnload === PreventUnload.NEVER) {
-            return;
-        }
-
-        let clear = false;
-        if (this.sock === null) {
-            clear = true;
-        } else if (this.sock.readyState !== this.sock.OPEN) {
-            clear = true;
-        } else if (this.sock.bufferedAmount === 0) {
-            if (this.settings.preventUnload === PreventUnload.WAIT_FOR_SEND) {
-                clear = true;
-            } else if (this.pendingCount() === 0) {
-                clear = true;
-            }
-        }
-
-        if (clear) {
-            this.clearUnload();
-        } else {
-            this.setUnload();
-        }
-    }
-
-    protected clearUnload() {
-        if (this.unloadRegistered === null) {
-            return;
-        }
-
-        removeEventListener("beforeunload", this.unloadRegistered, {capture: true});
-        this.unloadRegistered = null;
-    }
-
-    protected setUnload() {
-        if (this.unloadRegistered !== null) {
-            return;
-        }
-
-        this.unloadRegistered = this.onUnload.bind(this);
-        addEventListener("beforeunload", this.unloadRegistered, {capture: true});
     }
 }
