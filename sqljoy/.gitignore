@@ -1,5 +1,4 @@
 .idea/
 *.js
 *.js.map
-docs/
 node_modules/
