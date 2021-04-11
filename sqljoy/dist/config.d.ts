@@ -93,6 +93,10 @@ export interface Settings {
      * @defaultValue {@link defaultVersionChangeHandler}
      */
     versionChangeHandler: OnVersionChange | null;
+    /**
+     * The jsonReviver callback is passed to JSON.parse and works as documented here:
+     * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse}
+     */
     jsonReviver: JSONReviver;
     _valid: boolean;
     _lastServer: number;

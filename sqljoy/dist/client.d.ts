@@ -2,11 +2,29 @@ import { Settings, WaitBehavior } from "./config.js";
 import { SQL } from "./sql.js";
 import { Validator } from "./validation";
 import { Result } from "./result.js";
+/**
+ * An enum representing possible states of the SQLJoy client.
+ */
 export declare enum ClientStatus {
+    /**
+     * The state if the server closes the connection.
+     */
     NotConnected = 0,
+    /**
+     * Connecting. The state after construction. Requests at this point will wait until the state transitions to Open.
+     */
     Connecting = 1,
+    /**
+     * Open. The state after the connection is established.
+     */
     Open = 2,
+    /**
+     * Active. An open connection with pending requests.
+     */
     Active = 3,
+    /**
+     * Final state, if {@link SQLJoy.close} is called. Client can no longer be used.
+     */
     Closed = 4
 }
 declare enum CommandType {
@@ -141,9 +159,12 @@ export declare class SQLJoy {
     drain(waitFor?: WaitBehavior): Promise<void>;
     /**
      * hasPending returns true if there are pending requests that are in progress according
-     * to the specified WaitBehavior or settings.preventUnload if omitted.
+     * to the specified WaitBehavior.
      *
-     * @param waitFor - the WaitBehavior to determine what kind of pending requests sho
+     * @param waitFor - the WaitBehavior to determine what kind of pending requests should
+     * be considered. WAIT_FOR_SEND will return true if there are any requests buffered but not sent,
+     * and WAIT_FOR_ACK will return true if there are any requests which have not yet received responses.
+     * Defaults to {@link Settings.preventUnload}.
      */
     hasPending(waitFor?: WaitBehavior): boolean;
     /**

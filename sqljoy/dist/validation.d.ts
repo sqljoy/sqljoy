@@ -9,6 +9,8 @@ export declare type Validator = (errors: ValidationErrors, params: Record<string
  * ValidationError is an error thrown when validation fails.
  *
  * It's designed to support showing validation errors for user input.
+ *
+ * @member message the errors as a string as formatted by {@link validationSummary}
  */
 export declare class ValidationError extends Error {
     /**
@@ -69,8 +71,10 @@ export declare class ValidationErrors {
  */
 export declare function validate(query: SQL, params: Record<string, any>, validators: Validator[]): Promise<ValidationErrors | null>;
 /**
+ * Join all the errors into a single string by field separated with the join param.
  *
- * @param errors
- * @param nonFieldErrors
+ * @param errors the errors by field name
+ * @param nonFieldErrors non field errors - appended to the end, separated with join string
+ * @param join the string to join each error with, defaults to "\n"
  */
-export declare function validationErrorSummary(errors?: Record<string, string>, nonFieldErrors?: string[], join?: string): string;
+export declare function validationSummary(errors?: Record<string, string>, nonFieldErrors?: string[], join?: string): string;

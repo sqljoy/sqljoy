@@ -102,6 +102,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sqljoy.html#closed" class="tsd-kind-icon">closed</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sqljoy.html#session" class="tsd-kind-icon">session</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sqljoy.html#settings" class="tsd-kind-icon">settings</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sqljoy.html#url" class="tsd-kind-icon">url</a></li>
 							</ul>
@@ -133,7 +134,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/client.ts#L108">projects/sqljoy/sqljoy/sqljoy/src/client.ts:108</a></li>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/7d2bf31/sqljoy/src/client.ts#L113">projects/sqljoy/sqljoy/sqljoy/src/client.ts:113</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -166,10 +167,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="closed" class="tsd-anchor"></a>
 					<h3>closed</h3>
-					<div class="tsd-signature tsd-kind-icon">closed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<div class="tsd-signature tsd-kind-icon">closed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/client.ts#L102">projects/sqljoy/sqljoy/sqljoy/src/client.ts:102</a></li>
+							<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/7d2bf31/sqljoy/src/client.ts#L102">projects/sqljoy/sqljoy/sqljoy/src/client.ts:102</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -179,12 +180,29 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="session" class="tsd-anchor"></a>
+					<h3>session</h3>
+					<div class="tsd-signature tsd-kind-icon">session<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/7d2bf31/sqljoy/src/client.ts#L108">projects/sqljoy/sqljoy/sqljoy/src/client.ts:108</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Server globally unique session id, returned in response to HELLO message.
+								Exposed to tie into client-side logging/analytics like LogRocket so the
+							backend session can be associated with the frontend events.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="settings" class="tsd-anchor"></a>
 					<h3>settings</h3>
 					<div class="tsd-signature tsd-kind-icon">settings<span class="tsd-signature-symbol">:</span> <a href="../interfaces/settings.html" class="tsd-signature-type" data-tsd-kind="Interface">Settings</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/client.ts#L98">projects/sqljoy/sqljoy/sqljoy/src/client.ts:98</a></li>
+							<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/7d2bf31/sqljoy/src/client.ts#L98">projects/sqljoy/sqljoy/sqljoy/src/client.ts:98</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -199,7 +217,7 @@
 					<div class="tsd-signature tsd-kind-icon">url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/client.ts#L94">projects/sqljoy/sqljoy/sqljoy/src/client.ts:94</a></li>
+							<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/7d2bf31/sqljoy/src/client.ts#L94">projects/sqljoy/sqljoy/sqljoy/src/client.ts:94</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -221,7 +239,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/client.ts#L254">projects/sqljoy/sqljoy/sqljoy/src/client.ts:254</a></li>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/7d2bf31/sqljoy/src/client.ts#L255">projects/sqljoy/sqljoy/sqljoy/src/client.ts:255</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -249,7 +267,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/client.ts#L284">projects/sqljoy/sqljoy/sqljoy/src/client.ts:284</a></li>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/7d2bf31/sqljoy/src/client.ts#L285">projects/sqljoy/sqljoy/sqljoy/src/client.ts:285</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -281,13 +299,13 @@
 					<a name="executequery" class="tsd-anchor"></a>
 					<h3>execute<wbr>Query</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">execute<wbr>Query<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><a href="../interfaces/sql.html" class="tsd-signature-type" data-tsd-kind="Interface">SQL</a>, params<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, <span class="tsd-signature-symbol">...</span>validators<span class="tsd-signature-symbol">: </span><a href="../modules.html#validator" class="tsd-signature-type" data-tsd-kind="Type alias">Validator</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/result.html" class="tsd-signature-type" data-tsd-kind="Interface">Result</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">execute<wbr>Query<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><a href="../interfaces/sql.html" class="tsd-signature-type" data-tsd-kind="Interface">SQL</a>, params<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, <span class="tsd-signature-symbol">...</span>validators<span class="tsd-signature-symbol">: </span><a href="../modules.html#validator" class="tsd-signature-type" data-tsd-kind="Type alias">Validator</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/client.ts#L210">projects/sqljoy/sqljoy/sqljoy/src/client.ts:210</a></li>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/7d2bf31/sqljoy/src/client.ts#L211">projects/sqljoy/sqljoy/sqljoy/src/client.ts:211</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -335,7 +353,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/result.html" class="tsd-signature-type" data-tsd-kind="Interface">Result</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -349,13 +367,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/client.ts#L296">projects/sqljoy/sqljoy/sqljoy/src/client.ts:296</a></li>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/7d2bf31/sqljoy/src/client.ts#L300">projects/sqljoy/sqljoy/sqljoy/src/client.ts:300</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>hasPending returns true if there are pending requests that are in progress according
-									to the specified WaitBehavior or settings.preventUnload if omitted.</p>
+									to the specified WaitBehavior.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -363,7 +381,10 @@
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> waitFor: <a href="../enums/waitbehavior.html" class="tsd-signature-type" data-tsd-kind="Enumeration">WaitBehavior</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>the WaitBehavior to determine what kind of pending requests sho</p>
+										<p>the WaitBehavior to determine what kind of pending requests should
+											be considered. WAIT_FOR_SEND will return true if there are any requests buffered but not sent,
+											and WAIT_FOR_ACK will return true if there are any requests which have not yet received responses.
+										Defaults to <a href="../interfaces/settings.html#preventunload">Settings.preventUnload</a>.</p>
 									</div>
 								</li>
 							</ul>
@@ -381,7 +402,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/client.ts#L141">projects/sqljoy/sqljoy/sqljoy/src/client.ts:141</a></li>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/7d2bf31/sqljoy/src/client.ts#L142">projects/sqljoy/sqljoy/sqljoy/src/client.ts:142</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -413,7 +434,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/client.ts#L244">projects/sqljoy/sqljoy/sqljoy/src/client.ts:244</a></li>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/7d2bf31/sqljoy/src/client.ts#L245">projects/sqljoy/sqljoy/sqljoy/src/client.ts:245</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -458,7 +479,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/client.ts#L171">projects/sqljoy/sqljoy/sqljoy/src/client.ts:171</a></li>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/7d2bf31/sqljoy/src/client.ts#L172">projects/sqljoy/sqljoy/sqljoy/src/client.ts:172</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -506,6 +527,9 @@
 								<a href="sqljoy.html#closed" class="tsd-kind-icon">closed</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="sqljoy.html#session" class="tsd-kind-icon">session</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="sqljoy.html#settings" class="tsd-kind-icon">settings</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
@@ -549,9 +573,6 @@
 						<a href="../interfaces/call.html" class="tsd-kind-icon">Call</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/result.html" class="tsd-kind-icon">Result</a>
-					</li>
-					<li class=" tsd-kind-interface">
 						<a href="../interfaces/sql.html" class="tsd-kind-icon">SQL</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -559,6 +580,9 @@
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="../modules.html#onversionchange" class="tsd-kind-icon">On<wbr>Version<wbr>Change</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../modules.html#result" class="tsd-kind-icon">Result</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="../modules.html#row" class="tsd-kind-icon">Row</a>

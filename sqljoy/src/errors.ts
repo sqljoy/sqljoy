@@ -1,5 +1,5 @@
 /**
- * Errors is an enumeration of some predefined server errors.
+ * Errors is an enumeration of specific predefined server errors.
  */
 export enum Errors {
     ServerError = "ServerError",

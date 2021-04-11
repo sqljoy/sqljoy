@@ -99,12 +99,17 @@ export class SQLJoy {
     /**
      * True if close() has been called. The client may not be used further in that case.
      */
-    closed: boolean;
-    protected connecting: boolean;
+    closed: boolean = false;
+    /**
+     * Server globally unique session id, returned in response to HELLO message.
+     * Exposed to tie into client-side logging/analytics like LogRocket so the
+     * backend session can be associated with the frontend events.
+     */
+    session: string | null = null;
+    protected connecting: boolean = false;
     protected connectedAt: number = 0;
     protected lastId: number = 0;
-    protected unloadRegistered: ((ev: Event) => string | undefined) | null;
-    protected sock: WebSocket | null;
+    protected sock: WebSocket | null = null;
     protected queries: Record<number, QueryInProgress> = {}; // request id: response
 
     /**
@@ -121,10 +126,6 @@ export class SQLJoy {
         }
         this.settings = validateSettings(settings);
         this.url = "";
-        this.sock = null;
-        this.closed = false;
-        this.connecting = false;
-        this.unloadRegistered = null;
         this.connect();
         addClient(this);
     }
@@ -289,9 +290,12 @@ export class SQLJoy {
 
     /**
      * hasPending returns true if there are pending requests that are in progress according
-     * to the specified WaitBehavior or settings.preventUnload if omitted.
+     * to the specified WaitBehavior.
      *
-     * @param waitFor - the WaitBehavior to determine what kind of pending requests sho
+     * @param waitFor - the WaitBehavior to determine what kind of pending requests should
+     * be considered. WAIT_FOR_SEND will return true if there are any requests buffered but not sent,
+     * and WAIT_FOR_ACK will return true if there are any requests which have not yet received responses.
+     * Defaults to {@link Settings.preventUnload}.
      */
     hasPending(waitFor?: WaitBehavior): boolean {
         waitFor ||= this.settings.preventUnload;
@@ -347,11 +351,17 @@ export class SQLJoy {
     }
 
     protected onConnected() {
+        const self = this;
         this.connectedAt = (new Date()).getTime();
         this.sendCommand(CommandType.HELLO, "", {
             versionMajor,
             versionMinor,
             appVersion: this.settings.version,
+            referer: document.referrer,
+        }).then(r => {
+            if (isString(r.session)) {
+                self.session = r.session;
+            }
         }).catch(console.error);
     }
 
@@ -409,7 +419,6 @@ export class SQLJoy {
         }
 
         let id = 0;
-        let session = 0;
         let error: Error | null = null;
         let result: Result | any = null;
 
@@ -421,7 +430,6 @@ export class SQLJoy {
             }
 
             id = msg.id;
-            session = msg.session;
             if (msg.error) {
                 if (msg.errorType === Errors.ValidationError) {
                     if (isString(msg.error)) {
@@ -467,7 +475,7 @@ export class SQLJoy {
         if (error != null) {
             promise.reject(error);
         } else {
-            promise.resolve({id, session, result});
+            promise.resolve(result);
         }
     }
 

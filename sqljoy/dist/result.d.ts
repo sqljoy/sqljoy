@@ -46,7 +46,11 @@ export interface JSONResult {
     result?: any;
 }
 /**
+ * An object representing a query or call result.
  *
+ * Queries always have a ResultRows | null result. Calls can return arbitrary JSON
+ * with zero or more embedded ResultRows sets. It's possible to customize the JSON
+ * deserialization with {@link Settings.jsonReviver}.
  */
 export interface Result {
     id: number;
@@ -76,8 +80,21 @@ export declare class ResultRows implements IterableIterator<Row> {
     rows: any[][];
     affected: number;
     protected index: number;
+    /**
+     * Create a new ResultRows iterator object.
+     *
+     * @param columns an array of column string names
+     * @param rows an array of arrays of individual row values
+     * @param affected the number of rows selected or affected by the query
+     */
     constructor(columns: string[], rows: any[][], affected?: number);
+    /**
+     * Implements the iterator protocol. Fetch the next Row object.
+     */
     next(): IteratorResult<Row>;
+    /**
+     * Reset the iterator to the first row.
+     */
     reset(): void;
     [Symbol.iterator](): IterableIterator<Row>;
 }
