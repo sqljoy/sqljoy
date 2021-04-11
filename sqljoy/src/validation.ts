@@ -12,6 +12,8 @@ export type Validator = (errors: ValidationErrors, params: Record<string, any>) 
  * ValidationError is an error thrown when validation fails.
  *
  * It's designed to support showing validation errors for user input.
+ *
+ * @member message the errors as a string as formatted by {@link validationSummary}
  */
 export class ValidationError extends Error {
     /**
@@ -25,7 +27,7 @@ export class ValidationError extends Error {
     nonFieldErrors: string[];
 
     constructor(errors: Record<string, string> = {}, nonFieldErrors: string[] = []) {
-        super(validationErrorSummary(errors, nonFieldErrors));
+        super(validationSummary(errors, nonFieldErrors));
         this.name = "ValidationError";
         this.errors = errors;
         this.nonFieldErrors = nonFieldErrors;
@@ -142,11 +144,13 @@ export async function validate(query: SQL, params: Record<string, any>, validato
 }
 
 /**
+ * Join all the errors into a single string by field separated with the join param.
  *
- * @param errors
- * @param nonFieldErrors
+ * @param errors the errors by field name
+ * @param nonFieldErrors non field errors - appended to the end, separated with join string
+ * @param join the string to join each error with, defaults to "\n"
  */
-export function validationErrorSummary(errors: Record<string, string> = {}, nonFieldErrors: string[] = [], join="\n"): string {
+export function validationSummary(errors: Record<string, string> = {}, nonFieldErrors: string[] = [], join="\n"): string {
     const names = Object.keys(errors);
     names.sort();
     const fieldErrors = names.map((k: string) => `${k}: ${errors[k]}`).join(join);

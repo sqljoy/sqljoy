@@ -8,11 +8,29 @@ import {updateUnloadHandler} from "./unload";
 import {isString, wait} from "./util.js";
 import {Errors, ServerError} from "./errors";
 
+/**
+ * An enum representing possible states of the SQLJoy client.
+ */
 export enum ClientStatus {
+    /**
+     * The state if the server closes the connection.
+     */
     NotConnected,
+    /**
+     * Connecting. The state after construction. Requests at this point will wait until the state transitions to Open.
+     */
     Connecting,
+    /**
+     * Open. The state after the connection is established.
+     */
     Open,
+    /**
+     * Active. An open connection with pending requests.
+     */
     Active,
+    /**
+     * Final state, if {@link SQLJoy.close} is called. Client can no longer be used.
+     */
     Closed,
 }
 

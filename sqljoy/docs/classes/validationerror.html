@@ -71,6 +71,11 @@
 						<p>ValidationError is an error thrown when validation fails.</p>
 					</div>
 					<p>It&#39;s designed to support showing validation errors for user input.</p>
+					<dl class="tsd-comment-tags">
+						<dt>member</dt>
+						<dd><p>message the errors as a string as formatted by <a href="../modules.html#validationsummary">validationSummary</a></p>
+						</dd>
+					</dl>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
@@ -123,20 +128,23 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Validation<wbr>Error<span class="tsd-signature-symbol">(</span>errors<span class="tsd-signature-symbol">: </span><a href="validationerrors.html" class="tsd-signature-type" data-tsd-kind="Class">ValidationErrors</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="validationerror.html" class="tsd-signature-type" data-tsd-kind="Class">ValidationError</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Validation<wbr>Error<span class="tsd-signature-symbol">(</span>errors<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span>, nonFieldErrors<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="validationerror.html" class="tsd-signature-type" data-tsd-kind="Class">ValidationError</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides Error.constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/flowstatesrc/flowstate/blob/c957ad0/sqljoy-client/src/validation.ts#L25">projects/flowstate/flowstate/sqljoy-client/src/validation.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/validation.ts#L27">projects/sqljoy/sqljoy/sqljoy/src/validation.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>errors: <a href="validationerrors.html" class="tsd-signature-type" data-tsd-kind="Class">ValidationErrors</a></h5>
+									<h5>errors: <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = {}</span></h5>
+								</li>
+								<li>
+									<h5>nonFieldErrors: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="validationerror.html" class="tsd-signature-type" data-tsd-kind="Class">ValidationError</a></h4>
@@ -152,7 +160,7 @@
 					<div class="tsd-signature tsd-kind-icon">errors<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/flowstatesrc/flowstate/blob/c957ad0/sqljoy-client/src/validation.ts#L21">projects/flowstate/flowstate/sqljoy-client/src/validation.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/validation.ts#L23">projects/sqljoy/sqljoy/sqljoy/src/validation.ts:23</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -190,7 +198,7 @@
 					<div class="tsd-signature tsd-kind-icon">non<wbr>Field<wbr>Errors<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/flowstatesrc/flowstate/blob/c957ad0/sqljoy-client/src/validation.ts#L25">projects/flowstate/flowstate/sqljoy-client/src/validation.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/validation.ts#L27">projects/sqljoy/sqljoy/sqljoy/src/validation.ts:27</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -217,7 +225,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Error.prepareStackTrace</p>
 						<ul>
-							<li>Defined in projects/flowstate/flowstate/sqljoy-client/node_modules/@types/node/globals.d.ts:11</li>
+							<li>Defined in projects/sqljoy/sqljoy/sqljoy/node_modules/@types/node/globals.d.ts:11</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -262,7 +270,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Error.stackTraceLimit</p>
 						<ul>
-							<li>Defined in projects/flowstate/flowstate/sqljoy-client/node_modules/@types/node/globals.d.ts:13</li>
+							<li>Defined in projects/sqljoy/sqljoy/sqljoy/node_modules/@types/node/globals.d.ts:13</li>
 						</ul>
 					</aside>
 				</section>
@@ -280,7 +288,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Error.captureStackTrace</p>
 								<ul>
-									<li>Defined in projects/flowstate/flowstate/sqljoy-client/node_modules/@types/node/globals.d.ts:4</li>
+									<li>Defined in projects/sqljoy/sqljoy/sqljoy/node_modules/@types/node/globals.d.ts:4</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -314,13 +322,22 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-enum">
+						<a href="../enums/clientstatus.html" class="tsd-kind-icon">Client<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/errors.html" class="tsd-kind-icon">Errors</a>
+					</li>
+					<li class=" tsd-kind-enum">
 						<a href="../enums/waitbehavior.html" class="tsd-kind-icon">Wait<wbr>Behavior</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="result.html" class="tsd-kind-icon">Result</a>
+						<a href="resultrows.html" class="tsd-kind-icon">Result<wbr>Rows</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="sqljoy.html" class="tsd-kind-icon">SQLJoy</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="servererror.html" class="tsd-kind-icon">Server<wbr>Error</a>
 					</li>
 				</ul>
 				<ul class="current">
@@ -365,6 +382,9 @@
 						<a href="../interfaces/call.html" class="tsd-kind-icon">Call</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="../interfaces/result.html" class="tsd-kind-icon">Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="../interfaces/sql.html" class="tsd-kind-icon">SQL</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -393,6 +413,9 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../modules.html#validate" class="tsd-kind-icon">validate</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../modules.html#validationsummary" class="tsd-kind-icon">validation<wbr>Summary</a>
 					</li>
 				</ul>
 			</nav>

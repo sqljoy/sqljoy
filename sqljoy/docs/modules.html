@@ -64,14 +64,17 @@
 						<section class="tsd-index-section ">
 							<h3>Enumerations</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-enum"><a href="enums/clientstatus.html" class="tsd-kind-icon">Client<wbr>Status</a></li>
+								<li class="tsd-kind-enum"><a href="enums/errors.html" class="tsd-kind-icon">Errors</a></li>
 								<li class="tsd-kind-enum"><a href="enums/waitbehavior.html" class="tsd-kind-icon">Wait<wbr>Behavior</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Classes</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-class"><a href="classes/result.html" class="tsd-kind-icon">Result</a></li>
+								<li class="tsd-kind-class"><a href="classes/resultrows.html" class="tsd-kind-icon">Result<wbr>Rows</a></li>
 								<li class="tsd-kind-class"><a href="classes/sqljoy.html" class="tsd-kind-icon">SQLJoy</a></li>
+								<li class="tsd-kind-class"><a href="classes/servererror.html" class="tsd-kind-icon">Server<wbr>Error</a></li>
 								<li class="tsd-kind-class"><a href="classes/validationerror.html" class="tsd-kind-icon">Validation<wbr>Error</a></li>
 								<li class="tsd-kind-class"><a href="classes/validationerrors.html" class="tsd-kind-icon">Validation<wbr>Errors</a></li>
 							</ul>
@@ -80,6 +83,7 @@
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-interface"><a href="interfaces/call.html" class="tsd-kind-icon">Call</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/result.html" class="tsd-kind-icon">Result</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/sql.html" class="tsd-kind-icon">SQL</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/settings.html" class="tsd-kind-icon">Settings</a></li>
 							</ul>
@@ -97,6 +101,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function"><a href="modules.html#getclient" class="tsd-kind-icon">get<wbr>Client</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#sql" class="tsd-kind-icon">sql</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#validationsummary" class="tsd-kind-icon">validation<wbr>Summary</a></li>
 							</ul>
 							<h3>Advanced Functions</h3>
 							<ul class="tsd-index-list">
@@ -113,10 +118,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="onversionchange" class="tsd-anchor"></a>
 					<h3>On<wbr>Version<wbr>Change</h3>
-					<div class="tsd-signature tsd-kind-icon">On<wbr>Version<wbr>Change<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>client_version<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, server_version<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<div class="tsd-signature tsd-kind-icon">On<wbr>Version<wbr>Change<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>client_version<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, server_version<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/flowstatesrc/flowstate/blob/c957ad0/sqljoy-client/src/config.ts#L37">projects/flowstate/flowstate/sqljoy-client/src/config.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/config.ts#L43">projects/sqljoy/sqljoy/sqljoy/src/config.ts:43</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -132,17 +137,17 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-signature">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>client_version<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, server_version<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>client_version<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, server_version<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>client_version: <span class="tsd-signature-type">number</span></h5>
+												<h5>client_version: <span class="tsd-signature-type">string</span></h5>
 											</li>
 											<li>
-												<h5>server_version: <span class="tsd-signature-type">number</span></h5>
+												<h5>server_version: <span class="tsd-signature-type">string</span></h5>
 											</li>
 										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -158,7 +163,7 @@
 					<div class="tsd-signature tsd-kind-icon">Row<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/flowstatesrc/flowstate/blob/c957ad0/sqljoy-client/src/result.ts#L13">projects/flowstate/flowstate/sqljoy-client/src/result.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/result.ts#L78">projects/sqljoy/sqljoy/sqljoy/src/result.ts:78</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -180,7 +185,7 @@
 					<div class="tsd-signature tsd-kind-icon">Validator<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>errors<span class="tsd-signature-symbol">: </span><a href="classes/validationerrors.html" class="tsd-signature-type" data-tsd-kind="Class">ValidationErrors</a>, params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/flowstatesrc/flowstate/blob/c957ad0/sqljoy-client/src/validation.ts#L9">projects/flowstate/flowstate/sqljoy-client/src/validation.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/validation.ts#L9">projects/sqljoy/sqljoy/sqljoy/src/validation.ts:9</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -227,7 +232,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/flowstatesrc/flowstate/blob/c957ad0/sqljoy-client/src/registry.ts#L53">projects/flowstate/flowstate/sqljoy-client/src/registry.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/registry.ts#L55">projects/sqljoy/sqljoy/sqljoy/src/registry.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -265,7 +270,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/flowstatesrc/flowstate/blob/c957ad0/sqljoy-client/src/sql.ts#L60">projects/flowstate/flowstate/sqljoy-client/src/sql.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/sql.ts#L60">projects/sqljoy/sqljoy/sqljoy/src/sql.ts:60</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -309,6 +314,49 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="validationsummary" class="tsd-anchor"></a>
+					<h3>validation<wbr>Summary</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">validation<wbr>Summary<span class="tsd-signature-symbol">(</span>errors<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span>, nonFieldErrors<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, join<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/validation.ts#L153">projects/sqljoy/sqljoy/sqljoy/src/validation.ts:153</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Join all the errors into a single string by field separated with the join param.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>errors: <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = {}</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the errors by field name</p>
+									</div>
+								</li>
+								<li>
+									<h5>nonFieldErrors: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>non field errors - appended to the end, separated with join string</p>
+									</div>
+								</li>
+								<li>
+									<h5>join: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;\n&quot;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the string to join each error with, defaults to &quot;\n&quot;</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Advanced Functions</h2>
@@ -322,7 +370,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/flowstatesrc/flowstate/blob/c957ad0/sqljoy-client/src/sql.ts#L94">projects/flowstate/flowstate/sqljoy-client/src/sql.ts:94</a></li>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/sql.ts#L94">projects/sqljoy/sqljoy/sqljoy/src/sql.ts:94</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -367,7 +415,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/flowstatesrc/flowstate/blob/c957ad0/sqljoy-client/src/registry.ts#L40">projects/flowstate/flowstate/sqljoy-client/src/registry.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/registry.ts#L42">projects/sqljoy/sqljoy/sqljoy/src/registry.ts:42</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -397,7 +445,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/flowstatesrc/flowstate/blob/c957ad0/sqljoy-client/src/validation.ts#L117">projects/flowstate/flowstate/sqljoy-client/src/validation.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/598da86/sqljoy/src/validation.ts#L113">projects/sqljoy/sqljoy/sqljoy/src/validation.ts:113</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -440,13 +488,22 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-enum">
+						<a href="enums/clientstatus.html" class="tsd-kind-icon">Client<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/errors.html" class="tsd-kind-icon">Errors</a>
+					</li>
+					<li class=" tsd-kind-enum">
 						<a href="enums/waitbehavior.html" class="tsd-kind-icon">Wait<wbr>Behavior</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/result.html" class="tsd-kind-icon">Result</a>
+						<a href="classes/resultrows.html" class="tsd-kind-icon">Result<wbr>Rows</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/sqljoy.html" class="tsd-kind-icon">SQLJoy</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/servererror.html" class="tsd-kind-icon">Server<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/validationerror.html" class="tsd-kind-icon">Validation<wbr>Error</a>
@@ -456,6 +513,9 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/call.html" class="tsd-kind-icon">Call</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/result.html" class="tsd-kind-icon">Result</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/sql.html" class="tsd-kind-icon">SQL</a>
@@ -486,6 +546,9 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#validate" class="tsd-kind-icon">validate</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#validationsummary" class="tsd-kind-icon">validation<wbr>Summary</a>
 					</li>
 				</ul>
 			</nav>
