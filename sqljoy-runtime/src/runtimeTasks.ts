@@ -1,9 +1,8 @@
 import {taskFailed} from "./actions";
 import {REQUEST_ID_MASK, RequestFlags} from "./msgs";
 import {Context} from "./context";
-import {isString} from "flowstate/util";
+import {isString} from "./util";
 import {log, LogLevel} from "./log";
-import {exec} from "child_process";
 
 interface AnnotatedPromise<T> extends Promise<T> {
 	_untrusted_subtask_id: number;

@@ -1,7 +1,7 @@
 {
-  "name": "flowstate-worker",
+  "name": "sqljoy-runtime",
   "version": "1.0.0",
-  "description": "Flow State Client Library",
+  "description": "SQLJoy Runtime Library",
   "type": "module",
   "module": "ESNext",
   "main": "./src/index.js",

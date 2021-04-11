@@ -5,7 +5,7 @@ export function configure(settings: Record<string, any>) {
     if (settings.log_level !== undefined) {
         setLogLevel(settings.log_level);
     }
-    if (settings.log_level !== undefined) {
+    if (settings.max_timers !== undefined) {
         setMaxTimers(settings.max_timers);
     }
 }
