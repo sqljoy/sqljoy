@@ -2,7 +2,15 @@ import { Settings, WaitBehavior } from "./config.js";
 import { SQL } from "./sql.js";
 import { Validator } from "./validation";
 import { Result } from "./result.js";
+export declare enum ClientStatus {
+    NotConnected = 0,
+    Connecting = 1,
+    Open = 2,
+    Active = 3,
+    Closed = 4
+}
 declare enum CommandType {
+    HELLO = "H",
     QUERY = "Q",
     CALL = "C"
 }
@@ -27,17 +35,28 @@ declare class QueryInProgress {
  * The client supports concurrent asynchronous queries and server calls.
  *
  * @remarks It's possible to create multiple client instances, but usually this just causes
- * additional server utilization for no benefit. Prefer using this is a global singleton.
+ * additional server utilization for no benefit. Prefer using this is a global singleton
+ * created through {@link getClient}.
  */
 export declare class SQLJoy {
+    /**
+     * The url of the server this client is connected to.
+     */
     url: string;
+    /**
+     * The settings object this client was created with.
+     */
     settings: Settings;
+    /**
+     * True if close() has been called. The client may not be used further in that case.
+     */
     closed: boolean;
-    connecting: boolean;
+    protected connecting: boolean;
+    protected connectedAt: number;
+    protected lastId: number;
     protected unloadRegistered: ((ev: Event) => string | undefined) | null;
     protected sock: WebSocket | null;
     protected queries: Record<number, QueryInProgress>;
-    protected idSequence: number;
     /**
      * Creates a SQLJoy client and initiates a connection to the server.
      *
@@ -57,6 +76,10 @@ export declare class SQLJoy {
      * @throws Error if close() has been called.
      */
     ready(): Promise<void>;
+    /**
+     * Returns the current status of this client connection.
+     */
+    status(): ClientStatus;
     /**
      * executeQuery executes a compiled query (SQL) object with the optional additional named parameters
      * and validators and returns a promise resolving to a Result object.
@@ -138,9 +161,18 @@ export declare class SQLJoy {
      * first usage(s).
      */
     protected connect(): void;
+    protected onConnected(): void;
     protected sendCommand(cmd: CommandType, target: string, args: Record<string, any> | any[]): Promise<Result>;
     protected send(msg: string): void;
     protected doSend(msg: string): void;
+    /**
+     * Returns a monotonically increasing numeric id unique for this connection.
+     *
+     * Rather than store a timestamp of a request and a meaningless numeric id, we combine
+     * them by using a monotonic timestamp as the id. This value represents milliseconds
+     * passed since the connection was initiated.
+     */
+    protected nextId(): number;
     protected onMsg(e: MessageEvent): void;
     protected onError(e: Event): void;
     protected onClose(e: CloseEvent): void;

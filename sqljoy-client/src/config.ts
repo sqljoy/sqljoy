@@ -1,10 +1,14 @@
-import {isString, isPromise, shuffleArray} from "./util.js";
+import {isString, shuffleArray} from "./util.js";
+import {isRowsResult, ResultRows} from "./result";
+
+export const versionMajor = 0;
+export const versionMinor = 10;
 
 /**
  * These are defined as global variables by the compiler.
  */
 declare global {
-    const __VERSION_: number;
+    const __VERSION_: string;
     const __ACCOUNT_ID_: string;
 }
 
@@ -28,13 +32,15 @@ export enum WaitBehavior {
     NEVER
 }
 
+type JSONReviver = (this: any, key: string, value: any) => any;
+
 /**
  * OnVersionChange is the type of the callback function used to
  * customize behavior when the deployed server version is different
  * to the current client version. The server pushes a notification
  * to connected clients with differing versions when a deploy occurs.
  */
-export type OnVersionChange = (client_version: number, server_version: number) => void;
+export type OnVersionChange = (client_version: string, server_version: string) => void;
 
 /**
  * Settings object to configure the SQLJoy client.
@@ -49,14 +55,14 @@ export interface Settings {
      */
     accountId?: string;
     /**
-     * The version number of the compiled application, stored in global __VERSION_ by the compiler.
+     * The version of the compiled application, stored in global __VERSION_ by the compiler.
      * If this doesn't match the __VERSION_ on the server, the versionChangeHandler will be invoked.
      *
-     * @defaultValue window.__VERSION_ || 0 (disabled)
+     * @defaultValue window.__VERSION_ || "" (disabled)
      *
      * @see {@link versionChangeHandler} for more information.
      */
-    version: number;
+    version: string;
     /**
      * If using server discovery and health checks, this service can be request with a HTTP(s) GET
      * and returns a list of healthy SQLJoy servers for the configured account. If there's a connection
@@ -92,9 +98,10 @@ export interface Settings {
      * The versionChangeHandler is invoked when the server version changes compared to the client version.
      * Set to null to disable, or set to a custom function to customize the behavior.
      *
-     * @see {@link defaultVersionChangeHandler}
+     * @defaultValue {@link defaultVersionChangeHandler}
      */
     versionChangeHandler: OnVersionChange | null;
+    jsonReviver: JSONReviver;
     _valid: boolean;
     _lastServer: number;
 }
@@ -130,11 +137,25 @@ export function validateSettings(settings: Partial<Settings>): Settings {
         }
     }
 
+    settings.jsonReviver = makeJSONReviver(settings.jsonReviver);
     settings.versionChangeHandler ||= null;
-    settings.version ||= __VERSION_ || 0;
+    settings.version ||= __VERSION_ || "";
     settings.preventUnload ||= 0; // WAIT_FOR_SEND
     settings.discoveryTTLSeconds ||= 0;
     settings._lastServer ||= 0;
     settings._valid = true;
     return settings as Settings;
+}
+
+function makeJSONReviver(jsonReviver?: JSONReviver): JSONReviver {
+    return function(this: any, key: string, value: any): any {
+        if (isRowsResult(value)) {
+            const {__C_, __R_, __A_} = value;
+            return new ResultRows(__C_, __R_, __A_);
+        }
+        if (jsonReviver !== undefined) {
+            return jsonReviver.call(this, key, value);
+        }
+        return value;
+    };
 }

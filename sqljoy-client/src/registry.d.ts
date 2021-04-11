@@ -18,9 +18,15 @@ declare class SQLJoy {
  * @param client_version
  * @param server_version
  */
-export declare function defaultVersionChangeHandler(client_version: number, server_version: number): void;
+export declare function defaultVersionChangeHandler(client_version: string, server_version: string): void;
 /**
  * Get all SQLJoy client objects which have not been closed.
+ *
+ * @remarks This is for advanced usage.
+ *
+ * @see {@link getClient} should be preferred.
+ *
+ * @category Advanced
  */
 export declare function getAllClients(): SQLJoy[];
 /**

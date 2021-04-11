@@ -20,8 +20,10 @@ declare class SQLJoy {
  * @param client_version
  * @param server_version
  */
-export function defaultVersionChangeHandler(client_version: number, server_version: number) {
+export function defaultVersionChangeHandler(client_version: string, server_version: string) {
     Promise.all(getAllClients().map(c => c.drain())).then(() => {
+        // Supposedly this will refresh the page and bypass the cache
+        // That shouldn't be necessary, but we can't count on everyone to configure caching correctly.
         location.replace(location.href);
     });
 }

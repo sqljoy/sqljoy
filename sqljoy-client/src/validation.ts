@@ -24,11 +24,11 @@ export class ValidationError extends Error {
      */
     nonFieldErrors: string[];
 
-    constructor(errors: ValidationErrors) {
-        super(errors.toString());
+    constructor(errors: Record<string, string> = {}, nonFieldErrors: string[] = []) {
+        super(validationErrorSummary(errors, nonFieldErrors));
         this.name = "ValidationError";
-        this.errors = errors.errors;
-        this.nonFieldErrors = errors.nonFieldErrors;
+        this.errors = errors;
+        this.nonFieldErrors = nonFieldErrors;
     }
 }
 
@@ -83,12 +83,6 @@ export class ValidationErrors {
             }
         }
         return false;
-    }
-
-    toString(joinNames="\n"): string {
-        const names = Object.keys(this.errors);
-        names.sort();
-        return names.map((k: string) => `${k}: ${this.errors[k]}`).join(joinNames);
     }
 }
 
@@ -145,4 +139,16 @@ export async function validate(query: SQL, params: Record<string, any>, validato
         return errors
     }
     return null;
+}
+
+/**
+ *
+ * @param errors
+ * @param nonFieldErrors
+ */
+export function validationErrorSummary(errors: Record<string, string> = {}, nonFieldErrors: string[] = [], join="\n"): string {
+    const names = Object.keys(errors);
+    names.sort();
+    const fieldErrors = names.map((k: string) => `${k}: ${errors[k]}`).join(join);
+    return fieldErrors + join + join + nonFieldErrors.join(join);
 }

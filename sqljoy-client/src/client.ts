@@ -1,13 +1,23 @@
-import {Settings, validateSettings, WaitBehavior} from "./config.js";
+import {Settings, validateSettings, versionMajor, versionMinor, WaitBehavior} from "./config.js";
 import {getServerUrl} from "./discover";
 import {SQL} from "./sql.js";
 import {validate, ValidationError, Validator} from "./validation";
-import {Result} from "./result.js";
-import {addClient, removeClient, defaultVersionChangeHandler} from "./registry";
+import {isJSONResult, isRowsResult, Result, ResultRows, ServerEvent} from "./result.js";
+import {addClient, defaultVersionChangeHandler, removeClient} from "./registry";
 import {updateUnloadHandler} from "./unload";
 import {isString, wait} from "./util.js";
+import {Errors, ServerError} from "./errors";
+
+export enum ClientStatus {
+    NotConnected,
+    Connecting,
+    Open,
+    Active,
+    Closed,
+}
 
 enum CommandType {
+    HELLO = "H",
     QUERY = "Q",
     CALL = "C",
 }
@@ -56,7 +66,8 @@ class QueryInProgress {
  * The client supports concurrent asynchronous queries and server calls.
  *
  * @remarks It's possible to create multiple client instances, but usually this just causes
- * additional server utilization for no benefit. Prefer using this is a global singleton.
+ * additional server utilization for no benefit. Prefer using this is a global singleton
+ * created through {@link getClient}.
  */
 export class SQLJoy {
     /**
@@ -71,14 +82,12 @@ export class SQLJoy {
      * True if close() has been called. The client may not be used further in that case.
      */
     closed: boolean;
-    /**
-     * True if the client is in the process of connecting to the server.
-     */
-    connecting: boolean;
+    protected connecting: boolean;
+    protected connectedAt: number = 0;
+    protected lastId: number = 0;
     protected unloadRegistered: ((ev: Event) => string | undefined) | null;
     protected sock: WebSocket | null;
     protected queries: Record<number, QueryInProgress> = {}; // request id: response
-    protected idSequence: number = 0; // request id generator
 
     /**
      * Creates a SQLJoy client and initiates a connection to the server.
@@ -123,10 +132,38 @@ export class SQLJoy {
             throw Error("WebSocket connection should not be in closing state");
         }
 
+        // We have to wait for the socket to finish connecting before we can use it
+        // Otherwise we get: DOMException: Failed to execute 'send' on 'WebSocket': Still in CONNECTING state.
+        // There are all kinds of ways to do this, but the simplest by far is to just poll with setTimeout.
+        // The performance is more than acceptable.
         while (this.sock!.readyState === this.sock!.CONNECTING) {
-            // User didn't wait for connect() to complete, we support that
             await wait(5);
         }
+
+        if (this.connectedAt === 0) {
+            // If we haven't sent the connect message, identifying any session settings, the
+            // library and app version, etc - now is the time to do that.
+            this.onConnected();
+        }
+    }
+
+    /**
+     * Returns the current status of this client connection.
+     */
+    status(): ClientStatus {
+        if (this.closed) {
+            return ClientStatus.Closed;
+        }
+        if (this.sock == null) {
+            return ClientStatus.NotConnected;
+        }
+        if (this.sock.readyState === this.sock.OPEN) {
+            return (this.sock.bufferedAmount !== 0 || this.hasPendingResult()) ? ClientStatus.Active : ClientStatus.Open;
+        }
+        if (this.sock.readyState === this.sock.CONNECTING) {
+            return ClientStatus.Connecting;
+        }
+        return ClientStatus.NotConnected;
     }
 
     /**
@@ -165,7 +202,7 @@ export class SQLJoy {
         // as the client is untrusted.
         const errors = await validate(query, allParams, validators);
         if (errors != null) {
-            throw new ValidationError(errors);
+            throw new ValidationError(errors.errors, errors.nonFieldErrors);
         }
 
         // The validators can modify params, but on the client we need to discard those
@@ -291,8 +328,17 @@ export class SQLJoy {
         }).catch(() => this.connecting = false);
     }
 
+    protected onConnected() {
+        this.connectedAt = (new Date()).getTime();
+        this.sendCommand(CommandType.HELLO, "", {
+            versionMajor,
+            versionMinor,
+            appVersion: this.settings.version,
+        }).catch(console.error);
+    }
+
     protected sendCommand(cmd: CommandType, target: string, args: Record<string, any> | any[]): Promise<Result> {
-        const id = ++this.idSequence;
+        const id = this.nextId();
         // We don't need to send requests with the binary protocol.
         // Most requests are small and the code size increase and processing time increase aren't worth it.
         // This also means the server only needs to accept the text protocol.
@@ -322,28 +368,61 @@ export class SQLJoy {
         }
     }
 
+    /**
+     * Returns a monotonically increasing numeric id unique for this connection.
+     *
+     * Rather than store a timestamp of a request and a meaningless numeric id, we combine
+     * them by using a monotonic timestamp as the id. This value represents milliseconds
+     * passed since the connection was initiated.
+     */
+    protected nextId(): number {
+        const now = (new Date()).getTime();
+        const timestamp = now - this.connectedAt;
+        if (timestamp <= this.lastId) {
+            return ++this.lastId;
+        }
+        this.lastId = timestamp;
+        return timestamp;
+    }
+
     protected onMsg(e: MessageEvent) {
         if (this.settings.preventUnload !== WaitBehavior.NEVER) {
             updateUnloadHandler();
         }
 
         let id = 0;
-        let error = "";
+        let session = 0;
+        let error: Error | null = null;
         let result: Result | any = null;
 
         if (isString(e.data)) {
-            const msg = JSON.parse(e.data);
+            // Errors before we get a request id back can't be delivered to any promise, so just throw them.
+            const msg = JSON.parse(e.data, this.settings.jsonReviver);
+            if (!isJSONResult(msg)) {
+                throw new ServerError("invalid result", Errors.BadResult);
+            }
+
             id = msg.id;
+            session = msg.session;
             if (msg.error) {
-                error = msg.error;
-            } else if (msg.result) {
-                result = msg.result;
+                if (msg.errorType === Errors.ValidationError) {
+                    if (isString(msg.error)) {
+                        error = new ServerError("invalid validation error", Errors.BadResult);
+                    } else {
+                        error = new ValidationError(msg.error.errors, msg.error.nonFieldErrors);
+                    }
+                } else {
+                    error = new ServerError(msg.error.toString(), (msg.errorType as Errors) || Errors.ServerError);
+                }
+            } else if (isRowsResult(msg.result)) {
+                const {__C_, __R_, __A_} = msg.result;
+                result = new ResultRows(__C_, __R_, __A_); // missing a 4th __P_ argument
             } else {
-                result = new Result(msg.columns, msg.rows);
+                result = msg.result || null;
             }
         } else {
             // TODO binary protocol
-            throw Error("binary protocol not implemented");
+            throw new ServerError("binary protocol not implemented", Errors.BadResult);
         }
 
         const promise = this.queries[id];
@@ -351,16 +430,26 @@ export class SQLJoy {
             // This event has no associated request, it must have been server initiated
             if (result !== null && result.eventType != null) {
                 // This is a server "push" event, call the registered handler
-                console.warn("server initiated events not yet implemented");
+                switch (result.eventType) {
+                    case ServerEvent.VersionChange:
+                        if (this.settings.version !== result.version && this.settings.versionChangeHandler != null) {
+                            this.settings.versionChangeHandler(this.settings.version, result.version);
+                        }
+                        break;
+                    case ServerEvent.DataChange:
+                        console.warn("server initiated data change events not yet implemented");
+                        break;
+                }
+                return;
             }
-            return;
+            throw new Error("unexpected or invalid server message");
         }
 
         delete this.queries[id];
-        if (error.length !== 0) {
-            promise.reject(Error(error));
+        if (error != null) {
+            promise.reject(error);
         } else {
-            promise.resolve(result!);
+            promise.resolve({id, session, result});
         }
     }
 
