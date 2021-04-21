@@ -31,7 +31,15 @@ backend code bases in different languages. Code can be freely shared between fro
 without having to copy or move it. Read on to see how SQL Joy works.
 
  - [Query from the browser](#query-from-the-browser)
- - []
+ - [Validation](#validation)
+ - [Security](#security)
+ - [Transactions](#transactions)
+ - [Using privileged third party APIs](#using-privileged-third-party-apis)
+ - [Design Considerations](#design-considerations)
+ - [Use the right tool for the job](#use-the-right-tool-for-the-job)
+ - [The Sweet Spot](#the-sweet-spot)
+ - [The Dream](#the-dream)   
+ - [Open Source Software](#open-source-software)
 
 #### Query from the browser
 
@@ -123,7 +131,7 @@ However, server backend functions have no such restrictions and can run
 whitelisted as well as truly dynamic queries and even construct queries from
 strings - but with great power comes great responsibility so be careful!
 
-#### Transactions, dependant queries, and dynamic queries
+#### Transactions
 
 Generally it's an anti-pattern to hold transactions open in an interactive session split
 across a high latency link, such as between the browser and the server. Transactions hold
@@ -276,7 +284,7 @@ similarly - but that takes discipline, and you'll be swimming upstream against t
 Microservices are a terrible idea for so many reasons, but if that's your particular hell,
 then adding SQL Joy to it is not going to improve things.
 
-####  The Sweet Spot
+#### The Sweet Spot
 
 SQL Joy reduces a lot of boilerplate code, and reduces bugs by making it trivial to switch
 between frontend and backend code to ensure they're integrated correctly. When we have the
