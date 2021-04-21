@@ -1,6 +1,6 @@
 import {outTask} from "./out";
 import {MsgType} from "./msgs";
-import {clearSubtask, newCallbackSubtask} from "./runtimeTasks";
+import {clearSubtask, newCallbackSubtask} from "./subtasks";
 
 let TIMERS: Set<number> = new Set();
 let ACTIVE_TIMERS: number = 0;

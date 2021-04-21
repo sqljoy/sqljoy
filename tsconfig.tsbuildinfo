@@ -1,0 +1,226 @@
+{
+  "program": {
+    "fileInfos": {
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es5.d.ts": {
+        "version": "b3584bc5798ed422ce2516df360ffa9cf2d80b5eae852867db9ba3743145f895",
+        "signature": "b3584bc5798ed422ce2516df360ffa9cf2d80b5eae852867db9ba3743145f895",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2015.d.ts": {
+        "version": "dc47c4fa66b9b9890cf076304de2a9c5201e94b740cffdf09f87296d877d71f6",
+        "signature": "dc47c4fa66b9b9890cf076304de2a9c5201e94b740cffdf09f87296d877d71f6",
+        "affectsGlobalScope": false
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2016.d.ts": {
+        "version": "7a387c58583dfca701b6c85e0adaf43fb17d590fb16d5b2dc0a2fbd89f35c467",
+        "signature": "7a387c58583dfca701b6c85e0adaf43fb17d590fb16d5b2dc0a2fbd89f35c467",
+        "affectsGlobalScope": false
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2017.d.ts": {
+        "version": "8a12173c586e95f4433e0c6dc446bc88346be73ffe9ca6eec7aa63c8f3dca7f9",
+        "signature": "8a12173c586e95f4433e0c6dc446bc88346be73ffe9ca6eec7aa63c8f3dca7f9",
+        "affectsGlobalScope": false
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.dom.d.ts": {
+        "version": "feeeb1dd8a80fb76be42b0426e8f3ffa9bdef3c2f3c12c147e7660b1c5ba8b3b",
+        "signature": "feeeb1dd8a80fb76be42b0426e8f3ffa9bdef3c2f3c12c147e7660b1c5ba8b3b",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.dom.iterable.d.ts": {
+        "version": "d42f4141bd9ce82b4e2902f26acb00c183e321be19a38bbc0e76a922c1724c94",
+        "signature": "d42f4141bd9ce82b4e2902f26acb00c183e321be19a38bbc0e76a922c1724c94",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.webworker.importscripts.d.ts": {
+        "version": "7fac8cb5fc820bc2a59ae11ef1c5b38d3832c6d0dfaec5acdb5569137d09a481",
+        "signature": "7fac8cb5fc820bc2a59ae11ef1c5b38d3832c6d0dfaec5acdb5569137d09a481",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.scripthost.d.ts": {
+        "version": "097a57355ded99c68e6df1b738990448e0bf170e606707df5a7c0481ff2427cd",
+        "signature": "097a57355ded99c68e6df1b738990448e0bf170e606707df5a7c0481ff2427cd",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2015.core.d.ts": {
+        "version": "46ee15e9fefa913333b61eaf6b18885900b139867d89832a515059b62cf16a17",
+        "signature": "46ee15e9fefa913333b61eaf6b18885900b139867d89832a515059b62cf16a17",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2015.collection.d.ts": {
+        "version": "43fb1d932e4966a39a41b464a12a81899d9ae5f2c829063f5571b6b87e6d2f9c",
+        "signature": "43fb1d932e4966a39a41b464a12a81899d9ae5f2c829063f5571b6b87e6d2f9c",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2015.generator.d.ts": {
+        "version": "cdccba9a388c2ee3fd6ad4018c640a471a6c060e96f1232062223063b0a5ac6a",
+        "signature": "cdccba9a388c2ee3fd6ad4018c640a471a6c060e96f1232062223063b0a5ac6a",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2015.iterable.d.ts": {
+        "version": "8b2a5df1ce95f78f6b74f1a555ccdb6baab0486b42d8345e0871dd82811f9b9a",
+        "signature": "8b2a5df1ce95f78f6b74f1a555ccdb6baab0486b42d8345e0871dd82811f9b9a",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2015.promise.d.ts": {
+        "version": "2bb4b3927299434052b37851a47bf5c39764f2ba88a888a107b32262e9292b7c",
+        "signature": "2bb4b3927299434052b37851a47bf5c39764f2ba88a888a107b32262e9292b7c",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2015.proxy.d.ts": {
+        "version": "810627a82ac06fb5166da5ada4159c4ec11978dfbb0805fe804c86406dab8357",
+        "signature": "810627a82ac06fb5166da5ada4159c4ec11978dfbb0805fe804c86406dab8357",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2015.reflect.d.ts": {
+        "version": "62d80405c46c3f4c527ee657ae9d43fda65a0bf582292429aea1e69144a522a6",
+        "signature": "62d80405c46c3f4c527ee657ae9d43fda65a0bf582292429aea1e69144a522a6",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2015.symbol.d.ts": {
+        "version": "3013574108c36fd3aaca79764002b3717da09725a36a6fc02eac386593110f93",
+        "signature": "3013574108c36fd3aaca79764002b3717da09725a36a6fc02eac386593110f93",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts": {
+        "version": "9d122b7e8c1a5c72506eea50c0973cba55b92b5532d5cafa8a6ce2c547d57551",
+        "signature": "9d122b7e8c1a5c72506eea50c0973cba55b92b5532d5cafa8a6ce2c547d57551",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2016.array.include.d.ts": {
+        "version": "3be5a1453daa63e031d266bf342f3943603873d890ab8b9ada95e22389389006",
+        "signature": "3be5a1453daa63e031d266bf342f3943603873d890ab8b9ada95e22389389006",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2017.object.d.ts": {
+        "version": "17bb1fc99591b00515502d264fa55dc8370c45c5298f4a5c2083557dccba5a2a",
+        "signature": "17bb1fc99591b00515502d264fa55dc8370c45c5298f4a5c2083557dccba5a2a",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2017.sharedmemory.d.ts": {
+        "version": "7ce9f0bde3307ca1f944119f6365f2d776d281a393b576a18a2f2893a2d75c98",
+        "signature": "7ce9f0bde3307ca1f944119f6365f2d776d281a393b576a18a2f2893a2d75c98",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2017.string.d.ts": {
+        "version": "6a6b173e739a6a99629a8594bfb294cc7329bfb7b227f12e1f7c11bc163b8577",
+        "signature": "6a6b173e739a6a99629a8594bfb294cc7329bfb7b227f12e1f7c11bc163b8577",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2017.intl.d.ts": {
+        "version": "12a310447c5d23c7d0d5ca2af606e3bd08afda69100166730ab92c62999ebb9d",
+        "signature": "12a310447c5d23c7d0d5ca2af606e3bd08afda69100166730ab92c62999ebb9d",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2017.typedarrays.d.ts": {
+        "version": "b0124885ef82641903d232172577f2ceb5d3e60aed4da1153bab4221e1f6dd4e",
+        "signature": "b0124885ef82641903d232172577f2ceb5d3e60aed4da1153bab4221e1f6dd4e",
+        "affectsGlobalScope": true
+      },
+      "../../../.nvm/versions/node/v14.15.4/lib/node_modules/typescript/lib/lib.es2017.full.d.ts": {
+        "version": "d2f31f19e1ba6ed59be9259d660a239d9a3fcbbc8e038c6b2009bde34b175fed",
+        "signature": "d2f31f19e1ba6ed59be9259d660a239d9a3fcbbc8e038c6b2009bde34b175fed",
+        "affectsGlobalScope": false
+      },
+      "./private/dynamic.ts": {
+        "version": "f1208f4d0581ef54b423e0fe8042f96c2aa898dee1ceedbafedbf2970ccb8544",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+        "affectsGlobalScope": false
+      },
+      "./sqljoy/src/client.ts": {
+        "version": "40df3e6a5371d16175cf8300a902dc3115269d520e4f21f5afbfed7a50bc3e60",
+        "signature": "32b090d875ce7403a7814a4a5895b923575fcf66d032174e82f669bf95f26d91",
+        "affectsGlobalScope": false
+      },
+      "./sqljoy/src/index.ts": {
+        "version": "9edd52f04cbbd8a6b372ab8f2ec0bb068ebd27a279bea53555e612b118b5caf6",
+        "signature": "36e8437731e97725ff83675631d045129f114b93ae4e3cc5bc07114c35841bf1",
+        "affectsGlobalScope": false
+      },
+      "./sqljoy-runtime/src/actions.ts": {
+        "version": "cdeb616d69fe58e8c54d75097b961893a3683eac43bb66c3f0003b0a6c8fc30f",
+        "signature": "17a09d309490fbdab2fd0df5690e0e7bcffbb198d3e49271c3dccbb2b62eb442",
+        "affectsGlobalScope": false
+      },
+      "./sqljoy-runtime/src/config.ts": {
+        "version": "8819ce55bfa241371d5f23734b0c9a7ea41ddba51a7ccabb4e011a6bfaea592d",
+        "signature": "c770e99134172c8e3d70845c7eca0fc7b79b7163f39dfabd91fb154746b91c90",
+        "affectsGlobalScope": true
+      },
+      "./sqljoy-runtime/src/date.ts": {
+        "version": "9defae121ef60fdcc837e37a89474d04007f966f06b9fb58d80ee2d704427f23",
+        "signature": "1ad51d92db79ecb7377e9d40c2892a60396090453ce8326b6b08350660e1d4a8",
+        "affectsGlobalScope": false
+      },
+      "./sqljoy-runtime/src/dynamic_sql.ts": {
+        "version": "13d729c86c6d61da5a690153b484c00dbf5d6625057397ba7a436ccb4a3c8d9e",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+        "affectsGlobalScope": false
+      },
+      "./sqljoy-runtime/src/index.ts": {
+        "version": "5d43d01131c0fec91c31003cb8e7691a6993bdd739c9cfc80940f37e3d443745",
+        "signature": "402411d01597fe8161824d605e5b740e321a35dea769de2b0672ea674a318e0b",
+        "affectsGlobalScope": false
+      },
+      "./sqljoy-runtime/src/rand.ts": {
+        "version": "e867e884e5016f3d24d4f651db633268cb422d7d897e8566f3a3b5b102cacef3",
+        "signature": "9ad3b8c08a0436184937bdbe908a0cd0f1532f54d4b2467455205d2f4b690b68",
+        "affectsGlobalScope": false
+      },
+      "./sqljoy-runtime/src/result.ts": {
+        "version": "416af74dab7d906f1138693cd69d1f3685427f183969651a0289e7c379de4947",
+        "signature": "42bb89d5dbb00c13ddcdd099c508a9542f81ed0c8c9f3f43ac605d31ed95bb31",
+        "affectsGlobalScope": false
+      },
+      "./sqljoy-runtime/src/subtasks.ts": {
+        "version": "0379a45252ea4aa8f988dbc7974f1bc217b631d0034c71aef3cc7cfece198578",
+        "signature": "1485c7eb46bd168e66ff003985e916425f723e6e9d82ac49ad23b44ff67f17aa",
+        "affectsGlobalScope": false
+      },
+      "./sqljoy-runtime/src/tasks.ts": {
+        "version": "8528f1e6209d9ab3e028baaf98dd8f48a52c1cada0a9e11333064b4b2fd4892c",
+        "signature": "f984c74e366b5a165903ff525ce4ded07f8b2bbb5869fb061ba7be65f4f60b30",
+        "affectsGlobalScope": false
+      }
+    },
+    "options": {
+      "composite": true,
+      "module": 5,
+      "target": 4,
+      "strict": true,
+      "moduleResolution": 2,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "sourceMap": true,
+      "configFilePath": "./tsconfig.json"
+    },
+    "referencedMap": {
+      "./sqljoy-runtime/src/index.ts": [
+        "./sqljoy-runtime/src/dynamic_sql.ts"
+      ],
+      "./sqljoy-runtime/src/subtasks.ts": [
+        "./sqljoy-runtime/src/actions.ts"
+      ],
+      "./sqljoy-runtime/src/tasks.ts": [
+        "./sqljoy-runtime/src/actions.ts",
+        "./sqljoy-runtime/src/config.ts",
+        "./sqljoy-runtime/src/date.ts",
+        "./sqljoy-runtime/src/rand.ts",
+        "./sqljoy-runtime/src/subtasks.ts"
+      ],
+      "./sqljoy/src/index.ts": [
+        "./sqljoy/src/client.ts"
+      ]
+    },
+    "exportedModulesMap": {
+      "./sqljoy-runtime/src/index.ts": [
+        "./sqljoy-runtime/src/dynamic_sql.ts"
+      ],
+      "./sqljoy/src/index.ts": [
+        "./sqljoy/src/client.ts"
+      ]
+    },
+    "semanticDiagnosticsPerFile": []
+  },
+  "version": "4.2.4"
+}

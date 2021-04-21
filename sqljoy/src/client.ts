@@ -1,6 +1,6 @@
 import {Settings, validateSettings, versionMajor, versionMinor, WaitBehavior} from "./config.js";
 import {getServerUrl} from "./discover";
-import {SQL} from "./sql.js";
+import {prepareQuery, SQL} from "./sql.js";
 import {validate, ValidationError, Validator} from "./validation";
 import {isJSONResult, isRowsResult, Result, ResultRows, ServerEvent} from "./result.js";
 import {addClient, defaultVersionChangeHandler, removeClient} from "./registry";
@@ -186,18 +186,9 @@ export class SQLJoy {
     }
 
     /**
-     * executeQuery executes a compiled query (SQL) object with the optional additional named parameters
-     * and validators and returns a promise resolving to a Result object.
+     * [[include:executeQuery.md]]
      *
-     * The parameters passed to the validator will be the expressions embedded in the query
-     * e.g. sql`select * from foo where id = ${foo.id}` will add a parameter "foo.id": value to the
-     * parameters object. Expressions or literals like ${foo + 1} will be named as positional arguments
-     * starting at "$1". Late-bound parameters using the %{param} syntax must be provided in the
-     * params argument to this function or it will throw a ValidationError. If any parameter is undefined
-     * this throws a ValidationError. Use null if you mean null (simply ${param || null} will work.)
-     * The validators will be executed again on the server side to ensure they cannot be bypassed.
-     * Validators can change the type or values of the query parameters. Validators can also be async
-     * functions and can perform queries or fetch requests.
+     * @returns a promise resolving to a {@link Result} object.
      *
      * @remarks It's also possible to call validators with {@link validate} without executing the query (e.g. to display
      * feedback for a form.)
@@ -205,30 +196,13 @@ export class SQLJoy {
      * @throws {@link ValidationError} if any of the validators fail.
      *
      * @param query the compiled SQL query to execute
-     * @param params override bound ${expr} parameters or specify late-bound %{name} query parameters
+     * @param params override bound ${expr} parameters or specify deferred %{name} query parameters
      * @param validators zero or more validator functions that will run on both client and server
      */
     async executeQuery(query: SQL, params?: Record<string, any>, ...validators: Validator[]): Promise<Result> {
-        if (query.query === "invalid") {
-            throw Error(`attempt to execute uncompiled query, refer to the compiler warning for more info: ${query.text || query.query}`);
-        }
+        const queryParams = await prepareQuery(query, params, validators, false);
 
-        let allParams = Object.assign({}, query.params, params);
-
-        // This is the client-side validation. We also extract these functions and validParams
-        // through the whitelist compiler and save them with the query whitelist so the server
-        // can run them again. Note that we can't simply pass that information through from here
-        // as the client is untrusted.
-        const errors = await validate(query, allParams, validators);
-        if (errors != null) {
-            throw new ValidationError(errors.errors, errors.nonFieldErrors);
-        }
-
-        // The validators can modify params, but on the client we need to discard those
-        // changes so that the server-side validators receive the same input.
-        allParams = (params) ? Object.assign({}, query.params, params) : query.params;
-
-        return this.sendCommand(CommandType.QUERY, query.query, allParams);
+        return this.sendCommand(CommandType.QUERY, query.query, queryParams);
     }
 
     /**

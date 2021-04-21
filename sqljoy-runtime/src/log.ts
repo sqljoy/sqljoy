@@ -1,6 +1,6 @@
 import {outTask} from "./out";
 import {MsgType} from "./msgs";
-import {isString} from "flowstate/util";
+import {isString} from "./util";
 
 export enum LogLevel {
 	Debug,

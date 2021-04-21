@@ -1,0 +1,31 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./sqljoy" },
+    { "path": "./sqljoy-runtime" }
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "target": "es2017",
+    "module": "es2015",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true
+  },
+  "typedocOptions": {
+    "name": "SQL Joy",
+    "readme": "./readme.md",
+    "entryPoints": ["./sqljoy/src/index.ts", "./sqljoy-runtime/src/index.ts"],
+    "excludeExternals": true,
+    "excludeProtected": true,
+    "excludePrivate": true,
+    "defaultCategory": "Package",
+    "categoryOrder": "Package",
+    "includeVersion": true,
+    "includes": "./docs/include",
+    "out": "./docs/dist"
+  }
+}

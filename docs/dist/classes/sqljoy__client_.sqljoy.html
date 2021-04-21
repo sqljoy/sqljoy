@@ -1,0 +1,663 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>SQLJoy | SQL Joy - v0.1.0</title>
+	<meta name="description" content="Documentation for SQL Joy - v0.1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">SQL Joy - v0.1.0</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../modules.html">SQL Joy - v0.1.0</a>
+				</li>
+				<li>
+					<a href="../modules/sqljoy__client_.html">sqljoy (client)</a>
+				</li>
+				<li>
+					<a href="sqljoy__client_.sqljoy.html">SQLJoy</a>
+				</li>
+			</ul>
+			<h1>Class SQLJoy</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>SQLJoy represents a single client connection to the server.</p>
+					</div>
+					<p>The client supports concurrent asynchronous queries and server calls.</p>
+					<dl class="tsd-comment-tags">
+						<dt>remarks</dt>
+						<dd><p>It&#39;s possible to create multiple client instances, but usually this just causes
+								additional server utilization for no benefit. Prefer using this is a global singleton
+							created through <a href="../modules/sqljoy__client_.html#getclient">getClient</a>.</p>
+						</dd>
+					</dl>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">SQLJoy</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="sqljoy__client_.sqljoy.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sqljoy__client_.sqljoy.html#closed" class="tsd-kind-icon">closed</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sqljoy__client_.sqljoy.html#session" class="tsd-kind-icon">session</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sqljoy__client_.sqljoy.html#settings" class="tsd-kind-icon">settings</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sqljoy__client_.sqljoy.html#url" class="tsd-kind-icon">url</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sqljoy__client_.sqljoy.html#close" class="tsd-kind-icon">close</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sqljoy__client_.sqljoy.html#drain" class="tsd-kind-icon">drain</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sqljoy__client_.sqljoy.html#executequery" class="tsd-kind-icon">execute<wbr>Query</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sqljoy__client_.sqljoy.html#haspending" class="tsd-kind-icon">has<wbr>Pending</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sqljoy__client_.sqljoy.html#ready" class="tsd-kind-icon">ready</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sqljoy__client_.sqljoy.html#servercall" class="tsd-kind-icon">server<wbr>Call</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sqljoy__client_.sqljoy.html#status" class="tsd-kind-icon">status</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new SQLJoy<span class="tsd-signature-symbol">(</span>settings<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sqljoy__client_.settings.html" class="tsd-signature-type" data-tsd-kind="Interface">Settings</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="sqljoy__client_.sqljoy.html" class="tsd-signature-type" data-tsd-kind="Class">SQLJoy</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/8156460/sqljoy/src/client.ts#L113">sqljoy/src/client.ts:113</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a SQLJoy client and initiates a connection to the server.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>remarks</dt>
+									<dd><p>Except for advanced use cases, you should use the getClient() function
+										instead, which returns a singleton instance of this class.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>settings: <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/sqljoy__client_.settings.html" class="tsd-signature-type" data-tsd-kind="Interface">Settings</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>client configuration and options</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="sqljoy__client_.sqljoy.html" class="tsd-signature-type" data-tsd-kind="Class">SQLJoy</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="closed" class="tsd-anchor"></a>
+					<h3>closed</h3>
+					<div class="tsd-signature tsd-kind-icon">closed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/8156460/sqljoy/src/client.ts#L102">sqljoy/src/client.ts:102</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>True if close() has been called. The client may not be used further in that case.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="session" class="tsd-anchor"></a>
+					<h3>session</h3>
+					<div class="tsd-signature tsd-kind-icon">session<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = null</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/8156460/sqljoy/src/client.ts#L108">sqljoy/src/client.ts:108</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Server globally unique session id, returned in response to HELLO message.
+								Exposed to tie into client-side logging/analytics like LogRocket so the
+							backend session can be associated with the frontend events.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="settings" class="tsd-anchor"></a>
+					<h3>settings</h3>
+					<div class="tsd-signature tsd-kind-icon">settings<span class="tsd-signature-symbol">:</span> <a href="../interfaces/sqljoy__client_.settings.html" class="tsd-signature-type" data-tsd-kind="Interface">Settings</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/8156460/sqljoy/src/client.ts#L98">sqljoy/src/client.ts:98</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The settings object this client was created with.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="url" class="tsd-anchor"></a>
+					<h3>url</h3>
+					<div class="tsd-signature tsd-kind-icon">url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/8156460/sqljoy/src/client.ts#L94">sqljoy/src/client.ts:94</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The url of the server this client is connected to.</p>
+						</div>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="close" class="tsd-anchor"></a>
+					<h3>close</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">close<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/8156460/sqljoy/src/client.ts#L229">sqljoy/src/client.ts:229</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Close terminates the connection to the server (if any). This client object cannot be used again afterwards.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>remarks</dt>
+									<dd><p>If using WebSocket transport, queries (inserts/updates) or server calls that have been issued
+										may not yet be sent to the server. To avoid losing user changes, call the drain() method first.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="drain" class="tsd-anchor"></a>
+					<h3>drain</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">drain<span class="tsd-signature-symbol">(</span>waitFor<span class="tsd-signature-symbol">?: </span><a href="../enums/sqljoy__client_.waitbehavior.html" class="tsd-signature-type" data-tsd-kind="Enumeration">WaitBehavior</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/8156460/sqljoy/src/client.ts#L259">sqljoy/src/client.ts:259</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Wait for pending queries/calls according to the waitFor parameter.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><p>Wait for queries before closing.
+										<code>async function redirect(url: string) {     await client.drain();     client.close();     window.location.href = url; }</code></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>waitFor: <a href="../enums/sqljoy__client_.waitbehavior.html" class="tsd-signature-type" data-tsd-kind="Enumeration">WaitBehavior</a><span class="tsd-signature-symbol"> = ...</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>whether to wait for requests to send or to complete. Defaults to WAIT_FOR_ACK.
+										Passing NEVER causes this method to return immediately.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="executequery" class="tsd-anchor"></a>
+					<h3>execute<wbr>Query</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">execute<wbr>Query<span class="tsd-signature-symbol">(</span>query<span class="tsd-signature-symbol">: </span><a href="../interfaces/sqljoy__client_.sql.html" class="tsd-signature-type" data-tsd-kind="Interface">SQL</a>, params<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, <span class="tsd-signature-symbol">...</span>validators<span class="tsd-signature-symbol">: </span><a href="../modules/sqljoy__client_.html#validator" class="tsd-signature-type" data-tsd-kind="Type alias">Validator</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/8156460/sqljoy/src/client.ts#L202">sqljoy/src/client.ts:202</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>executeQuery executes a compiled query (SQL) object with the optional additional
+									deferred <code>%{named}</code> parameters and validators.</p>
+									<p>Parameters with undefined value throw a ValidationError, because this can hide bugs.
+										If you want SQL NULL, pass null instead. You can use ${value || null} as a shortcut
+									if you want undefined to be null.</p>
+									<p> The parameters passed to the validator will be the expressions embedded in the query.
+										<code>sql`select * from foo where id = ${foo.id} OR bar = ${2+foo}:bar OR name = %{name}` </code> will have
+										named parameters <code>{&quot;id&quot;: foo.id, &quot;bar&quot;: 2+foo, &quot;name&quot;: undefined}</code>. Deferred parameters
+										can be declared using the %{param} syntax, they must be provided in the params argument to
+										this function, or it will throw a ValidationError. If a parameter does not have a name, it gets
+										assigned a unique numeric name. Use the :name suffix syntax to name query expressions
+									so that they can be validated. </p>
+									<p>If there is a name conflict, a number is affixed to
+										the param name to make it unique. <code>${obj1.foo} ${obj2.foo}</code> becomes
+										<code>{&quot;foo&quot;: obj1.foo, &quot;foo2&quot;: obj2.foo}</code> and will issue a warning at compile time and
+										runtime via console.warn. This usually happens when constructing a query out of
+										SQL fragments that contain the same param name. Use the :name syntax to give the params
+									unique names and suppress the warning.</p>
+									<p>The validators will be executed again on the server side to ensure they cannot be bypassed.
+										Validators can also change the type or values of the query parameters. Validators can be async
+										functions and can perform queries or fetch requests, although this will execute twice
+										and hurt query latency so use it sparingly. If you must do that, try enclosing it within
+									an <code>if (ENV_SERVER) { ... }</code> block so that it only executes once on the server side.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>remarks</dt>
+									<dd><p>It&#39;s also possible to call validators with <a href="../modules/sqljoy__client_.html#validate">validate</a> without executing the query (e.g. to display
+										feedback for a form.)</p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p><a href="sqljoy__client_.validationerror.html">ValidationError</a> if any of the validators fail.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>query: <a href="../interfaces/sqljoy__client_.sql.html" class="tsd-signature-type" data-tsd-kind="Interface">SQL</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the compiled SQL query to execute</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> params: <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>override bound ${expr} parameters or specify deferred %{name} query parameters</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>validators: <a href="../modules/sqljoy__client_.html#validator" class="tsd-signature-type" data-tsd-kind="Type alias">Validator</a><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>zero or more validator functions that will run on both client and server</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>a promise resolving to a <a href="../modules/sqljoy__client_.html#result">Result</a> object.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="haspending" class="tsd-anchor"></a>
+					<h3>has<wbr>Pending</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">has<wbr>Pending<span class="tsd-signature-symbol">(</span>waitFor<span class="tsd-signature-symbol">?: </span><a href="../enums/sqljoy__client_.waitbehavior.html" class="tsd-signature-type" data-tsd-kind="Enumeration">WaitBehavior</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/8156460/sqljoy/src/client.ts#L274">sqljoy/src/client.ts:274</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>hasPending returns true if there are pending requests that are in progress according
+									to the specified WaitBehavior.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> waitFor: <a href="../enums/sqljoy__client_.waitbehavior.html" class="tsd-signature-type" data-tsd-kind="Enumeration">WaitBehavior</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the WaitBehavior to determine what kind of pending requests should
+											be considered. WAIT_FOR_SEND will return true if there are any requests buffered but not sent,
+											and WAIT_FOR_ACK will return true if there are any requests which have not yet received responses.
+										Defaults to <a href="../interfaces/sqljoy__client_.settings.html#preventunload">Settings.preventUnload</a>.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="ready" class="tsd-anchor"></a>
+					<h3>ready</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">ready<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/8156460/sqljoy/src/client.ts#L142">sqljoy/src/client.ts:142</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>ready returns a promise that resolves once the underlying transport is connected and ready for use.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>remarks</dt>
+									<dd><p>It is not necessary to explicitly use this method, it is used internally by other methods
+											in this class. However, it&#39;s exposed because it may be useful when displaying a spinner or other
+										progress indicator while establishing a connection to the server.</p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p>Error if close() has been called.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="servercall" class="tsd-anchor"></a>
+					<h3>server<wbr>Call</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">server<wbr>Call<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="../interfaces/sqljoy__client_.call.html" class="tsd-signature-type" data-tsd-kind="Interface">Call</a>, <span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/8156460/sqljoy/src/client.ts#L219">sqljoy/src/client.ts:219</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>serverCall executes the target function on the server with the passed arguments
+									and returns the decoded JSON result or Result object or throws the returned error.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>remarks</dt>
+									<dd><p>serverCall should not be invoked directly, rather server calls matching the
+											pattern func(client.beginTx(), ...) will be transformed by the compiler into calls to this method.
+										All arguments must be serializable as JSON with JSON.stringify, or an Error will be thrown.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <a href="../interfaces/sqljoy__client_.call.html" class="tsd-signature-type" data-tsd-kind="Interface">Call</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The compiled target to call</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The JSON serializable arguments to pass to the target function</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="status" class="tsd-anchor"></a>
+					<h3>status</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../enums/sqljoy__client_.clientstatus.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ClientStatus</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sqljoy/sqljoy/blob/8156460/sqljoy/src/client.ts#L172">sqljoy/src/client.ts:172</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns the current status of this client connection.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../enums/sqljoy__client_.clientstatus.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ClientStatus</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../modules.html">Modules</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="../modules/sqljoy__client_.html">sqljoy (client)</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/sqljoy_runtime__server_.html">sqljoy-<wbr>runtime (server)</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-parent-kind-module">
+						<a href="../enums/sqljoy__client_.clientstatus.html" class="tsd-kind-icon">Client<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module">
+						<a href="../enums/sqljoy__client_.errors.html" class="tsd-kind-icon">Errors</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module">
+						<a href="../enums/sqljoy__client_.waitbehavior.html" class="tsd-kind-icon">Wait<wbr>Behavior</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="sqljoy__client_.resultrows.html" class="tsd-kind-icon">Result<wbr>Rows</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module">
+						<a href="sqljoy__client_.sqljoy.html" class="tsd-kind-icon">SQLJoy</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="sqljoy__client_.sqljoy.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="sqljoy__client_.sqljoy.html#closed" class="tsd-kind-icon">closed</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="sqljoy__client_.sqljoy.html#session" class="tsd-kind-icon">session</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="sqljoy__client_.sqljoy.html#settings" class="tsd-kind-icon">settings</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="sqljoy__client_.sqljoy.html#url" class="tsd-kind-icon">url</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="sqljoy__client_.sqljoy.html#close" class="tsd-kind-icon">close</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="sqljoy__client_.sqljoy.html#drain" class="tsd-kind-icon">drain</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="sqljoy__client_.sqljoy.html#executequery" class="tsd-kind-icon">execute<wbr>Query</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="sqljoy__client_.sqljoy.html#haspending" class="tsd-kind-icon">has<wbr>Pending</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="sqljoy__client_.sqljoy.html#ready" class="tsd-kind-icon">ready</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="sqljoy__client_.sqljoy.html#servercall" class="tsd-kind-icon">server<wbr>Call</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="sqljoy__client_.sqljoy.html#status" class="tsd-kind-icon">status</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="sqljoy__client_.servererror.html" class="tsd-kind-icon">Server<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="sqljoy__client_.validationerror.html" class="tsd-kind-icon">Validation<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="sqljoy__client_.validationerrors.html" class="tsd-kind-icon">Validation<wbr>Errors</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/sqljoy__client_.call.html" class="tsd-kind-icon">Call</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/sqljoy__client_.sql.html" class="tsd-kind-icon">SQL</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/sqljoy__client_.settings.html" class="tsd-kind-icon">Settings</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/sqljoy__client_.html#onversionchange" class="tsd-kind-icon">On<wbr>Version<wbr>Change</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/sqljoy__client_.html#result" class="tsd-kind-icon">Result</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/sqljoy__client_.html#row" class="tsd-kind-icon">Row</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/sqljoy__client_.html#validator" class="tsd-kind-icon">Validator</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/sqljoy__client_.html#getallclients" class="tsd-kind-icon">get<wbr>All<wbr>Clients</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/sqljoy__client_.html#getclient" class="tsd-kind-icon">get<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/sqljoy__client_.html#sql-1" class="tsd-kind-icon">sql</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/sqljoy__client_.html#validate" class="tsd-kind-icon">validate</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/sqljoy__client_.html#validationsummary" class="tsd-kind-icon">validation<wbr>Summary</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

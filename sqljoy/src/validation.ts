@@ -104,25 +104,26 @@ function addError(errors: ValidationErrors | null, key: string, err: string): Va
  * the user input (parameters) without executing the query yet. For example, if
  * you only have partial input or you're validating it as the user enters it.
  *
- * @param query
- * @param params
- * @param validators
+ * @throws {@link ValidationError} if any of the validators fail.
+ *
+ * @param query the SQL query with possible parameters to validate
+ * @param params will be combined overtop of query.params
+ * @param validators array of validator functions to call (can be empty)
  *
  * @category Advanced
  */
-export async function validate(query: SQL, params: Record<string, any>, validators: Validator[]): Promise<ValidationErrors | null> {
+export async function validate(query: SQL, params: Record<string, any> | undefined, validators: Validator[]): Promise<Record<string, any>> {
     let errors: ValidationErrors | null = (validators.length === 0) ? null : new ValidationErrors();
+
+    params = Object.assign({}, query.params, params);
 
     // Make sure all of the params have been provided.
     // If any parameter in params is undefined, treat that as an error.
     // If the user wants null, they must pass null explicitly (or param || null) otherwise it can hide errors.
-    // Flag any missing late-bound params that are still set to __PARAM_.
     for (let param in params) {
         if (params.hasOwnProperty(param)) {
-            if (param === undefined) {
-                errors = addError(errors, param, "param is undefined, use null if you mean null");
-            } else if (param === "__PARAM_") {
-                errors = addError(errors, param, `missing value for late-bound %{${param}}: pass it in executeQuery(..., params, ...)`);
+            if (params[param] === undefined) {
+                errors = addError(errors, param, "param is undefined or missing, use null if you mean null");
             }
         }
     }
@@ -138,9 +139,9 @@ export async function validate(query: SQL, params: Record<string, any>, validato
         await Promise.all(promises);
     }
     if (errors !== null && errors.hasErrors()) {
-        return errors
+        throw new ValidationError(errors.errors, errors.nonFieldErrors);
     }
-    return null;
+    return params;
 }
 
 /**

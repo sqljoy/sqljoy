@@ -8,8 +8,8 @@ export const versionMinor = 10;
  * These are defined as global variables by the compiler.
  */
 declare global {
-    const __VERSION_: string;
-    const __ACCOUNT_ID_: string;
+    const ENV_APP_VERSION: string;
+    const ENV_ACCOUNT_ID: string;
 }
 
 /**
@@ -49,16 +49,16 @@ export interface Settings {
     /**
      * The registered account id with SQLJoy. Required for managed cloud service and server discovery.
      *
-     * @defaultValue window.__ACCOUNT_ID_, set in a global by the compiler
+     * @defaultValue window.ENV_ACCOUNT_ID, set in a global by the compiler
      *
      * @remarks It's free to create an account, no credit card required.
      */
     accountId?: string;
     /**
-     * The version of the compiled application, stored in global __VERSION_ by the compiler.
-     * If this doesn't match the __VERSION_ on the server, the versionChangeHandler will be invoked.
+     * The version of the compiled application, stored in global ENV_APP_VERSION by the compiler.
+     * If this doesn't match the ENV_APP_VERSION on the server, the versionChangeHandler will be invoked.
      *
-     * @defaultValue window.__VERSION_ || "" (disabled)
+     * @defaultValue window.ENV_APP_VERSION || "" (disabled)
      *
      * @see {@link versionChangeHandler} for more information.
      */
@@ -124,7 +124,7 @@ export function validateSettings(settings: Partial<Settings>): Settings {
     if (settings._valid) {
         return settings as Settings;
     }
-    settings.accountId ||= __ACCOUNT_ID_;
+    settings.accountId ||= ENV_ACCOUNT_ID;
 
     if (!settings.discoveryUrl && !settings.servers) {
         throw Error("must provide either a discovery service or a list of servers");
@@ -143,7 +143,7 @@ export function validateSettings(settings: Partial<Settings>): Settings {
 
     settings.jsonReviver = makeJSONReviver(settings.jsonReviver);
     settings.versionChangeHandler ||= null;
-    settings.version ||= __VERSION_ || "";
+    settings.version ||= ENV_APP_VERSION || "";
     settings.preventUnload ||= 0; // WAIT_FOR_SEND
     settings.discoveryTTLSeconds ||= 0;
     settings._lastServer ||= 0;

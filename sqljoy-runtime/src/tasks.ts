@@ -1,27 +1,16 @@
-// For security reasons the runtime has to be imported before user code in userTasks
-// We edit the builtins/globals.
-import {
-    getOutboxLength,
-    log,
-    LogLevel,
-    OutTask,
-    seedRandom,
-    setDate,
-    setOutbox,
-    taskFailed,
-    taskResult,
-    VarLen
-} from "./index";
-// TODO remove this ts-ignore?
-// @ts-ignore
-import {cancelRequest, resumeTask, TaskData} from "./runtimeTasks";
+import {OutTask, setOutbox, getOutboxLength} from "./out";
+import {setDate} from "./date";
+import {seedRandom} from "./rand";
+import {log, LogLevel} from "./log";
+import {cancelRequest, resumeTask} from "./subtasks";
 import {REQUEST_IS_SUBTASK} from "./msgs";
 import {Context} from "./context";
 import {isString} from "./util";
 import type {Validator} from "./validation";
 import {configure} from "./config";
+import {taskFailed, taskResult} from "./actions";
 
-type InTask = [number | null, VarLen, TaskData];
+type InTask = [number | null, any, any];
 
 const userTasks: Record<string, (...args : any[]) => any> = {};
 
@@ -80,7 +69,7 @@ export function runTasks(tasks: InTask[], results: OutTask[], tasks_length: numb
     return getOutboxLength();
 }
 
-function runTask(requestId: number, name: string, arg: TaskData) {
+function runTask(requestId: number, name: string, arg: any) {
     const taskFunction = isString(name) ? (userTasks as any)[name] || runtimeTasks[name] : undefined;
     const ctx = new Context(requestId);
     if (taskFunction === undefined) {
