@@ -34,7 +34,7 @@ without having to copy or move it. Read on to see how SQL Joy works.
  - [Validation](#validation)
  - [Security](#security)
  - [Transactions](#transactions)
- - [Using privileged third party APIs](#using-privileged-third-party-apis)
+ - [Using third party APIs](#using-third-party-apis)
  - [Design Considerations](#design-considerations)
  - [Use the right tool for the job](#use-the-right-tool-for-the-job)
  - [The Sweet Spot](#the-sweet-spot)
@@ -200,7 +200,7 @@ leads to fewer developers getting stuck waiting for answers from the backend tea
 meetings and disruptions via slack and email, and fewer bugs when developers didn't go
 to the effort to verify the behavior of the backend code.
 
-#### Using privileged third party APIs
+#### Using third party APIs
 
 One of the main tasks of a backend is to interact with privileged third-party APIs
 that can't be used from the frontend because they require you to enforce security
