@@ -27,7 +27,7 @@ you can do that, the more productive an engineer you will be.
 
 ### SQL Joy is not an ORM
 
-For these reason, [SQL Joy](readme.md) is not, and will never be an ORM.
+For these reason, [SQL Joy](../../readme.md) is not, and will never be an ORM.
 We're all for convenience and will definitely add some simple
 and transparent convenience methods to make common tasks of
 getting data out of the database, and saving data back to the database
