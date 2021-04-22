@@ -25,7 +25,7 @@
     "defaultCategory": "Package",
     "categoryOrder": "Package",
     "includeVersion": true,
-    "includes": "./pages/include",
-    "out": "./pages/docs"
+    "includes": "./docs/include",
+    "out": "./docs/docs"
   }
 }
