@@ -276,6 +276,8 @@ to make backwards compatible - and the REST API for developers not using SQL Joy
 be awkward. The server function call API produces a fairly sensible REST API, but it still doesn't
 give you the discoverability of GraphQL or the flexibility of REST - and backwards compatibility
 is still an issue. So if your product _is_ the backend, SQL Joy is likely not the right tool for the job.
+In this case you should use GraphQL and you if you're using PostgreSQL you should strongly
+consider Hasura with views to provide an abstraction over your database schema as necessary.
 
 If you're using microservices for the backend, then having SQL Joy bypass the backend
 and interact with the database directly really breaks the design encapsulation
