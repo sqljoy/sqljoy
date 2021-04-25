@@ -1,9 +1,12 @@
 #### Build serverless apps in JavaScript with SQL
-SQL Joy is an [open/available source](#open-source-software) serverless framework for creating JavaScript web applications with a PostgreSQL database.
+
+SQL Joy is a serverless framework for creating JavaScript web applications with a PostgreSQL database.
 You query the database directly from the frontend app or call JavaScript functions which
 execute on the server platform. SQL Joy can work with React, Vue, Svelte, or any frontend framework.
-It is most comparable to [Firebase](https://github.com/sqljoy/sqljoy/blob/master/docs/pages/firebase.md),
-PostgREST, and Hasura. SQL Joy lets you ergonomically:
+It is most [comparable](#how-sql-joy-compares-with-alternatives) to Firebase, PostgREST, and Hasura. SQL Joy lets you ergonomically:
+
+SQL Joy is not yet released. You can [sign up here](https://danielkunz.typeform.com/to/zqLPQ0Kb) for
+access to the beta program when it opens in Q4.
 
 Query from the browser:
 ```js
@@ -36,10 +39,8 @@ without having to copy or move it. Read on to see how SQL Joy works.
  - [Transactions](#transactions)
  - [Using third party APIs](#using-third-party-apis)
  - [Design Considerations](#design-considerations)
- - [Use the right tool for the job](#use-the-right-tool-for-the-job)
- - [The Sweet Spot](#the-sweet-spot)
- - [The Dream](#the-dream)   
- - [Open Source Software](#open-source-software)
+ - [How SQL Joy compares with alternatives](#how-sql-joy-compares-with-alternatives)
+ - [The Promise of Universal JavaScript](#the-promise-of-universal-javascript)
 
 #### Query from the browser
 
@@ -264,29 +265,67 @@ but it solves a whole related class of backward compatibility problems that
 are typical with traditional software stacks. Stop wasting time chasing down
 that long tail of unreproducible bugs.
 
-#### Use the right tool for the job
+#### How SQL Joy compares with alternatives
 
-We gave you lots of reasons why you should give SQL Joy a try, but in the spirit of
-radical transparency, which is a guiding principle for us, it's also important to talk
-about where it may not the right tool for the job.
+We strongly value radical transparency and honesty, so we try hard to be impartial here.
+However, it's unavoidable that we're biased towards SQL Joy, and you should be extra careful to employ your critical
+thinking skills here.
 
-If you are publishing an API for third parties to use, then your backend _is_ the product. In
-that case you don't want to use SQL queries directly from the frontend because they're harder
-to make backwards compatible - and the REST API for developers not using SQL Joy would
-be awkward. The server function call API produces a fairly sensible REST API, but it still doesn't
-give you the discoverability of GraphQL or the flexibility of REST - and backwards compatibility
-is still an issue. So if your product _is_ the backend, SQL Joy is likely not the right tool for the job.
-In this case you should use GraphQL and you if you're using PostgreSQL you should strongly
-consider Hasura with views to provide an abstraction over your database schema as necessary.
+|      | SQL Joy | Firebase | PostgREST | Hasura |
+| ---- | ------- | -------- | --------- | ------ |
+| Database | PostgreSQL | NoSQL | PostgreSQL | PostgreSQL, SQL Server |
+| API | SQL / JavaScript | Client libraries | REST | GraphQL | 
+| Lock-in | Light | Heavy | Light | Light |
+| Self hosted | Yes | No | Yes | Yes |
+| Cloud service | Coming in 2022 | Only | Supabase.io | Yes |
+| Bring your own db | Yes | No | Yes | Yes |
+| Scalable | Excellent | If no data joins | Normal | Excellent |
+| Scale Horizontally | Yes | Yes | Yes | Yes |
+| Flexibility | Excellent | Poor | Poor | Good |
+| Real-time updates | Soon | Good | No | Excellent |
+| Open-source | [Not yet](https://github.com/sqljoy/sqljoy/issues/1) | No | Yes | Yes |
+| Support | Good | Poor | Community | Good |
+| Price | Free < 3 devs | By usage with free tier | Free | Free for self-hosted |
 
-If you're using microservices for the backend, then having SQL Joy bypass the backend
-and interact with the database directly really breaks the design encapsulation
-that you're trying to achieve. You could still use modules to separate components
-similarly - but that takes discipline, and you'll be swimming upstream against the current.
-Microservices are a terrible idea for so many reasons, but if that's your particular hell,
-then adding SQL Joy to it is not going to improve things.
+Firebase is the most popular and has brand recognition as a Google Cloud service.
+If you're 100% certain your problem can be modelled for a NoSQL database, where
+you work with single objects or at most a range of objects of the same type,
+and you don't need to join between related objects of different types, then Firebase
+is a solid choice. If you're uncertain, or the requirements may change as your
+product grows and matures, then the heavy lock-in you'll find with Firebase
+could trap you into a solution that doesn't fit later on. Firebase is easy to get
+started with. The security rules is a nice feature, but often misused or configured in practice
+leading to a lot of data leaks. The likelihood you'll have to contort your data to fit both the
+limited NoSQL model, and the limited security rules, mean there's a high chance you'll
+end up regretting the decision in the future.
 
-#### The Sweet Spot
+Hasura is probably the next most popular. It's an excellent tool for creating a GraphQL
+API. You'll need to learn both SQL and GraphQL, but if your API is consumed by external
+developers, this is definitely the way to go. Running custom backend code is more awkward 
+than SQL Joy, because that wasn't an initial design consideration. However, it has a lot of
+features and should cover most needs comfortably. It's a much better choice than Firebase.
+You'll need to enable the allow-list function and manually add all your queries to the allow-list
+and keep them in sync as you change them. Otherwise, bad actors can write pathological
+queries against your database that bring it down or access data you didn't secure correctly.
+In general there's more configuration needed with Hasura than SQL Joy, but it's also more
+flexible. If you need an external API we strongly recommend using Hasura in addition or
+instead of SQL Joy. If you use our cloud service, Hasura can be added with a few clicks.
+
+PostgREST is inferior in most ways to Hasura. It's less convenient, less flexible, and has
+fewer features. From our point of view there's no reason we would choose it over the others
+for a new project. It probably has appeal to people not wanting to learn GraphQL, but that's
+a mistake that will cost more in the long run. PostgREST is a fine product, but there are
+better options now.
+
+SQL Joy is the newest option and does not yet have all the features of the others. However,
+because it was designed from the start to allow custom backend code, that should be
+inconvenient rather than limiting when you run into a missing feature. It's easier to start with
+and configure than Hasura, and doesn't require that you use GraphQL. It's only for web and
+React Native applications. The others can be used with native mobile apps. We don't see
+ourselves in competition with Hasura, we offer it as part of our cloud service, and we'll
+integrate it more with SQL Joy over time to make the combination more convenient.
+
+#### The promise of Universal JavaScript
 
 SQL Joy reduces a lot of boilerplate code, and reduces bugs by making it trivial to switch
 between frontend and backend code to ensure they're integrated correctly. When we have the
@@ -294,13 +333,12 @@ cloud service available it will also provide a fully serverless runtime environm
 you pay for what you use and don't have to worry about any of the tasks around server administration,
 monitoring, scaling, etc.
 
-However, the real sweet spot currently is that it's a technical workaround to an organizational
-problem that many people are unaware of. If you have separate frontend and backend teams it's
-terribly inefficient. You lose some 0-30% productivity at any point in time by
-having the suboptimal balance between frontend and backend developers. You'll never be lucky
-enough to have it balanced just right - and it changes over time. You also lose a tremendous
-amount of velocity (latency - not throughput) in delivering features. If you've ever worked
-in such an environment you know that adding a new feature looks something like this:
+If you have separate frontend and backend teams it's
+terribly inefficient. You lose up to 20% productivity at any point in time by
+having the suboptimal balance between frontend and backend developers. One is never lucky
+enough to have it balanced just right - and that ideal balance changes daily. You also lose a
+tremendous amount of velocity (latency - not throughput) in delivering features. If you've ever
+worked in such an environment you know that adding a new feature looks something like this:
 
  - Have a series of cross-team meetings to sync on requirements
  - Put backend and frontend tasks into the respective team backlogs
@@ -317,55 +355,41 @@ see why iteration at such a slow pace is devastating to the success of any softw
 This is an organizational anti-pattern, but it's very common because it's tough to find
 developers with skills and experience running the full gamut of your software stack.
 
-With SQL Joy, you still have developers who are more comfortable doing frontend or backend
-development, but everyone can read, understand, and modify all the code. Rather than the
-terribly slow cycle above a frontend developer can mock up or even fully build the API
-they need, and reach out to an individual backend expert for advice or to complete
-the work. You can convert two backlogs into one and have all developers working on the
-highest priority work at any point in time. You have just one language to hire for
-and fewer specific skills and experience required. This is the promise of universal JavaScript.
+There will always developers who are more comfortable doing frontend or backend
+development - but with SQL Joy everyone can read, understand, and modify all the code. 
+Rather than the kafkaesque cycle above, a frontend developer can mock up or even fully build
+the API they need, and reach out to an individual backend expert for advice or to complete
+the work. The two backlogs can be merged into one and all developers are free to do the
+highest priority work at any point in time. There is just one language to hire for
+and fewer specific skills and experience required. 
 
-#### The Dream
+This is not unique to SQL Joy, this has long been the promise of universal JavaScript (using
+JavaScript on both the server and the client.)  It's what motivated Ryan Dahl to create NodeJS
+and now Deno. SQL Joy merely makes universal JavaScript applications easier and more pleasant
+to create and maintain. Being able to share code seamlessly across the frontend and backend is a
+productivity boon, especially when it comes to validation. For security, validation has always
+needed to be done in the backend, but for timely user-feedback it also needs to happen in the frontend.
+Keeping that logic in sync across different programming languages violates the DRY principle.
 
-The idea of universal JavaScript is not new, it's what motivated Ryan Dahl to create NodeJS
-and now Deno. Being able to share code seamlessly across the frontend and backend is
-really convenient, especially when it comes to validation. For security validation has
-always needed to be done in the backend, but for timely user-feedback it also needs to
-happen in the frontend.
-
-JavaScript has matured into a respectable language that borrows inspiration
-and modern features from languages like Python. It's the most popular programming
-language in the world by a wide margin because of its use in the browser. Additionally,
-with Microsoft having created TypeScript you can incrementally add an expressive and powerful type system to the language.
+JavaScript, historically the butt of many jokes, has matured into a respectable language that
+borrows inspiration and modern features from languages like Python. It's the most popular programming
+language in the world by a wide margin because of its use in the browser. With TypeScript,
+it's possible to incrementally add an expressive and powerful type system to the language.
 JavaScript tooling has also dramatically improved and modern JavaScript runtimes like V8 produce
 very efficient code that is an order of magnitude faster than interpreted languages like
 Python and Ruby.
 
 With Deno smoothing out the differences between browser JavaScript and server JavaScript,
-the time has really come for universal JavaScript. SQL Joy allows frontend and backend code
-to cohabit and interoperate seamlessly without having to change how it's structure or move
-or copy code across boundaries. We hope it makes the dream of universal JavaScript more competitive.
+the time has really come for universal JavaScript. SQL Joy leverages Deno and allows
+frontend and backend code to cohabit and interoperate seamlessly without having move 
+or copy code across boundaries. We hope it makes the dream of universal JavaScript more competitive. 
+There is a massive advantage to be had in the reduction in mental context switching, in compartmentalizing of knowledge,
+in the amount of skills and knowledge required, and in overall complexity.
 
-#### Open Source Software
+#### Get early access
 
-It's important to be clear and honest about what parts of SQL Joy are open source under the OSI definition and what are not.
-The client library, server runtime library, and CLI tools / compiler are all OSI open source under
-the extremely permissive MIT license. The admin application is closed source and only free for small teams - but
-it is merely a convenience and not required to use SQL Joy. The server itself is licensed under
-the MIT License with [Commons Clause](https://commonsclause.com/) rider.
-
-The Commons Clause rider prohibits selling the software or offering it as a paid service. 
-It came about as a reaction to large cloud companies profiting off open-source software while giving
-nothing back. As a result, the server is available source software with most of the rights and freedoms of
-open source software, minus that one exception about being able to profit directly off it. One
-may of course sell other products or services built with SQL Joy.
-
-This is a balance we're trying to strike between giving as many rights and freedoms to
-developers as possible without also preventing us from creating a profitable business on
-top of it - which is what pays for the development and improvement of SQL Joy for everyone.
-The Commons Clause is a short, simple, and elegant solution to the greatest flaw of OSI licenses.  
-
-
+SQL Joy is not yet released. You can [sign up here](https://danielkunz.typeform.com/to/zqLPQ0Kb) for
+access to the beta program when it opens in Q4.
 
 
 
