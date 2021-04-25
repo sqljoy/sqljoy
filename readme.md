@@ -6,7 +6,7 @@ execute on the server platform. SQL Joy can work with React, Vue, Svelte, or any
 It is most [comparable](#how-sql-joy-compares-with-alternatives) to Firebase, PostgREST, and Hasura. SQL Joy lets you ergonomically:
 
 SQL Joy is not yet released. You can [sign up here](https://danielkunz.typeform.com/to/zqLPQ0Kb) for
-access to the beta program when it opens in Q4.
+access to the beta program when it opens.
 
 Query from the browser:
 ```js
@@ -389,7 +389,7 @@ in the amount of skills and knowledge required, and in overall complexity.
 #### Get early access
 
 SQL Joy is not yet released. You can [sign up here](https://danielkunz.typeform.com/to/zqLPQ0Kb) for
-access to the beta program when it opens in Q4.
+access to the beta program when it opens.
 
 
 
